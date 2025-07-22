@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <!-- Header Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ATTENDANCE MARKING"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#E1F5FE"/>
+
+    <!-- Student Info Section -->
+    <TextView
+        android:id="@+id/tvStudentName"
+        android:text="Student Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp"/>
+
+    <!-- Date Selection Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:text="Selected Date: "
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnPickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="CHOOSE DATE"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            android:background="@android:drawable/btn_default"
+            android:minWidth="120dp"/>
+    </LinearLayout>
+
+    <!-- Attendance Options Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MARK ATTENDANCE"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="8dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnPresent"
+            android:text="PRESENT"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:layout_height="48dp"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:background="#4CAF50"/>
+
+        <Button
+            android:id="@+id/btnAbsent"
+            android:text="ABSENT"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:layout_height="48dp"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:background="#F44336"/>
+
+        <Button
+            android:id="@+id/btnLeave"
+            android:text="LEAVE"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_height="48dp"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:background="#FF9800"/>
+    </LinearLayout>
+
+</LinearLayout>

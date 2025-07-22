@@ -1,3 +1,6 @@
+//app/build.gradle.kts
+
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -17,6 +20,11 @@ android {
     }
 
     buildTypes {
+
+        debug {
+        isDebuggable = true
+        isMinifyEnabled = false
+    }
         release {
             isMinifyEnabled = false
             proguardFiles(

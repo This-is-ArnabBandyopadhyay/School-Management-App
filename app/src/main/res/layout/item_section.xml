@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="1dp">
+
+    <!-- Section Name -->
+    <TextView
+        android:id="@+id/textSectionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Section A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:paddingBottom="12dp"/>
+
+    <!-- Action Buttons - now simpler rectangular buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="4dp">
+
+        <Button
+            android:id="@+id/btnEditSection"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Edit"
+            android:background="@android:drawable/btn_default"
+            android:textColor="#333333"
+            android:minWidth="80dp"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnDeleteSection"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Delete"
+            android:background="@android:drawable/btn_default"
+            android:textColor="#333333"
+            android:minWidth="80dp"
+            android:layout_marginStart="8dp"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

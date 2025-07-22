@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/student_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_student_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp"
+    android:elevation="4dp"
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="12dp">
+
+    <!-- Student Name -->
+    <TextView
+        android:id="@+id/tv_student_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#333333" />
+
+    <!-- Roll No -->
+    <TextView
+        android:id="@+id/tv_student_roll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Roll No: 123"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_marginTop="4dp" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tv_student_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email: abc@example.com"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_marginTop="4dp" />
+
+    <!-- Buttons: Edit and Delete -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/btn_edit_student"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Edit"
+            android:textColor="#333333"
+            android:background="#E0E0E0"
+            android:minWidth="80dp"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <Button
+            android:id="@+id/btn_delete_student"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Delete"
+            android:textColor="#FFFFFF"
+            android:background="#757575"
+            android:minWidth="80dp"
+            android:layout_marginStart="8dp"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+    </LinearLayout>
+</LinearLayout>

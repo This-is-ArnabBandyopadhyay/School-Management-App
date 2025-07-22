@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Other student details -->
+
+    <Button
+        android:id="@+id/btn_view_notices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Notices" />
+
+        <Button
+    android:id="@+id/btnViewRespondedQueries"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="View Responded Queries" />
+
+<Button
+    android:id="@+id/btnViewPendingQueries"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="View Pending Queries" />
+
+   <Button
+    android:id="@+id/btn_update_attendance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Update Attendance"
+    android:layout_marginTop="8dp" />
+
+<Button
+    android:id="@+id/btn_check_attendance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Check Attendance"
+    android:layout_marginTop="8dp" />
+
+/>
+
+
+</LinearLayout>

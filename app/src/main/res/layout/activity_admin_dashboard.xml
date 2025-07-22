@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="24dp"
@@ -6,38 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Admin Dashboard"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <TextView android:text="Welcome to Admin Dashboard"
+        android:textSize="22sp"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+
+        <Button
+    android:id="@+id/issueNoticeButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Issue Notice"
+    android:layout_marginTop="12dp" />
 
     <Button
-        android:id="@+id/viewStudentsButton"
-        android:text="View Students"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/btn_view_all_queries"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="View All Student Queries"
+    android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/sendNoticeButton"
-        android:text="Send Notice"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/btn_manage_admins"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Manage Admins"
+    android:layout_marginTop="12dp" />
 
     <Button
-        android:id="@+id/viewLeaveRequestsButton"
-        android:text="View Leave Requests"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/btn_manage_students"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Manage Students"
+    android:layout_marginTop="12dp" />
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:text="Logout"
-        android:layout_marginTop="32dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+   <Button
+    android:id="@+id/btn_manage_classes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Manage Classes"
+    android:layout_marginTop="16dp" />
+
+<Button
+    android:id="@+id/btn_manage_leaves"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Manage Leave Applications"
+    android:layout_marginTop="16dp"/>
+
+
+
 </LinearLayout>

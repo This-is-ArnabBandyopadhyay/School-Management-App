@@ -1,43 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp">
+
+    <TextView android:text="Welcome to Student Dashboard"
+        android:textSize="22sp"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+        <Button
+    android:id="@+id/viewNoticesButton"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:text="Student Dashboard"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:text="View Notices"
+    android:layout_marginTop="12dp" />
 
     <Button
-        android:id="@+id/viewProfileButton"
-        android:text="View Profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/btn_submit_query"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Submit Query"
+    android:layout_marginTop="16dp" />
+
+<Button
+    android:id="@+id/btn_view_queries"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="View My Queries"
+    android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/ReadNoticeButton"
-        android:text="Read Notice"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/btn_apply_leave"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Apply for Leave"
+    android:layout_marginTop="16dp"/>
 
-    <Button
-        android:id="@+id/applyForLeaveButton"
-        android:text="Apply Leave Request"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<Button
+    android:id="@+id/btn_view_leave_status"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="View My Leave Applications"
+    android:layout_marginTop="12dp"/>
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:text="Logout"
-        android:layout_marginTop="32dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<Button
+    android:id="@+id/btn_check_attendance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Check Attendance"
+    android:layout_marginTop="8dp" />
+
+
 </LinearLayout>

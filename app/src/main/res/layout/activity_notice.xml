@@ -1,0 +1,159 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Notice Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notice Title"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/noticeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter notice title"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Description -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/noticeDesc"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Enter notice description"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:gravity="top"
+            android:textSize="16sp"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Recipient Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Recipients"
+            android:textColor="#333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/sendToAllCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send to All Students"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Class Names -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Class Numbers (comma separated)"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            android:visibility="visible"/>
+
+        <EditText
+            android:id="@+id/classNames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Example: 1, 2, 3"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Class-Section Pairs -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Class-Section Pairs (comma separated)"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/classSectionPairs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Example: 1-A, 2-B"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Student IDs -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Roll Numbers (comma separated)"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/studentIds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Example: 001, 002, 003"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Group IDs -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Group IDs (comma separated)"
+            android:textColor="#333"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/groupIds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Example: group1, group2"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Send Button -->
+        <Button
+            android:id="@+id/sendNoticeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Send Notice"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:background="#2196F3"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</ScrollView>

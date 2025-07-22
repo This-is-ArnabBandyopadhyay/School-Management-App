@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/textViewSelectedClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sections for Class 10"
+        android:textColor="#2196F3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btnSearchSection"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Search"
+            android:textColor="#2196F3"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:background="#E0E0E0"
+            android:layout_marginHorizontal="8dp"/>
+
+        <Button
+            android:id="@+id/btnAddSection"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="Add Section"
+            android:textColor="#FFFFFF"
+            android:background="#2196F3"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Sections List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSections"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"/>
+
+    <!-- Empty State -->
+    <TextView
+        android:id="@+id/textNoSectionsFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Sections Found"
+        android:textAlignment="center"
+        android:textColor="#9E9E9E"
+        android:textSize="16sp"
+        android:layout_marginTop="32dp"
+        android:visibility="gone" />
+</LinearLayout>

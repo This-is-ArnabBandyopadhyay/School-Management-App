@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.stuadminlogin">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
+        android:label="School Management App"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Stuadminlogin"
-        tools:targetApi="31">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- ✅ MAIN Activity -->
+        <!-- Entry point -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,30 +19,55 @@
             </intent-filter>
         </activity>
 
-        <!-- Student Login Screen -->
-        <activity
-            android:name=".StudentLoginActivity"
-            android:exported="false" />
+        <!-- Dashboards -->
+        <activity android:name=".activities.AdminDashboardActivity" android:exported="true" />
+        <activity android:name=".activities.StudentDashboardActivity" android:exported="true" />
 
-        <!-- Admin Login Screen -->
-        <activity
-            android:name=".AdminLoginActivity"
-            android:exported="false" />
+        <!-- Registration -->
+      
 
-        <!-- Admin Dashboard -->
-        <activity
-            android:name=".AdminDashboard"
-            android:exported="false" />
+        <!-- Notices -->
+        <activity android:name=".activities.NoticeActivity" android:exported="true" />
+        <activity android:name=".activities.ViewNoticesActivity" android:exported="true" />
 
-        <activity
-            android:name=".SendNoticeActivity"
-            android:exported="false"/>
-        <activity android:name=".ReadNotices"
-            android:exported="false" />
-        <activity android:name=".StudentDashboard"
-            android:exported="false" />
+        <!-- Queries -->
+        <activity android:name=".activities.SubmitQueryActivity" android:exported="true" />
+        <activity android:name=".activities.ViewMyQueriesActivity" android:exported="true" />
+        <activity android:name=".activities.RespondToQueryActivity" android:exported="true" />
+        <activity android:name=".activities.AdminViewQueriesActivity" android:exported="true" />
 
+        <!-- Database & Admin Tools -->
+        <!-- <activity android:name=".activities.ViewDatabaseActivity" android:exported="true" /> -->
+        <activity android:name=".activities.EditAdminActivity" android:exported="true" />
+        <activity android:name=".activities.EditStudentActivity" android:exported="true" />
+
+        <!-- Optional viewer -->
+        <activity android:name=".activities.DatabaseViewerActivity" android:exported="true" />
+
+        <activity android:name=".activities.ManageClassesActivity" android:exported="true" />
+        <activity android:name=".activities.ManageSectionsActivity" />
+        <activity android:name=".activities.ManageStudentsActivity" />
+        <activity android:name=".activities.ViewStudentDetailsActivity" />
+        <activity android:name=".activities.ViewStudentNoticesActivity" />
+        <activity android:name=".activities.ViewStudentPendingQueriesActivity" />
+        <activity android:name=".activities.ViewStudentRespondedQueriesActivity" />
+        <activity android:name=".activities.AdminLeaveReviewActivity" />
+<activity android:name=".activities.StudentLeaveListActivity" />
+<activity android:name=".activities.LeaveApplicationFormActivity" />
+<activity android:name=".activities.UpdateAttendanceActivity" />
+<activity android:name=".activities.ViewAttendanceActivity" />
+
+
+
+
+    
+
+        
+        
 
 
     </application>
+
 </manifest>
+
+

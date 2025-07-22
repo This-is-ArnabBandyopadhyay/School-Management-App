@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">stuadminlogin</string>
+    <string-array name="attendance_status_array">
+    <item>Present</item>
+    <item>Absent</item>
+    <item>Leave</item>
+</string-array>
+
 </resources>
+
