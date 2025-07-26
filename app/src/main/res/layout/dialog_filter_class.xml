@@ -32,7 +32,7 @@
         android:layout_height="48dp"
         android:text="Apply Filter"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#1b1b1cff"
+        android:backgroundTint="#6200EE"
         android:textColor="@android:color/white"
         android:textAllCaps="false"/>
 </LinearLayout>

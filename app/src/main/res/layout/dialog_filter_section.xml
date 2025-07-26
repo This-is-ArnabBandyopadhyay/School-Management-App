@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:textColor="#1c1c1dff"
+            android:textColor="#6200EE"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_marginEnd="8dp"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search"
-            android:textColor="#121112ff"
+            android:textColor="#6200EE"
             android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 </LinearLayout>
