@@ -1,45 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
-    android:orientation="vertical"
-    android:background="#f9f9f9"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="2dp"
-    android:layout_marginBottom="8dp">
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackgroundFloating"
+    android:padding="16dp"
+    android:elevation="4dp"
+    android:layout_margin="8dp"
+    android:clipToPadding="false">
 
+    <!-- Dates (Bold header) -->
     <TextView
         android:id="@+id/tvDates"
-        android:textStyle="bold"
-        android:textColor="#000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dates"/>
+        android:text="Dates"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:layout_marginBottom="4dp"/>
 
+    <!-- Reason (Secondary text) -->
     <TextView
         android:id="@+id/tvReason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reason"/>
+        android:text="Reason"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_marginBottom="4dp"/>
 
+    <!-- Status (Colored text) -->
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Status"/>
+        android:text="Status"
+        android:textSize="14sp"
+        android:textColor="?attr/colorPrimary"
+        android:layout_marginBottom="4dp"/>
 
+    <!-- Applied At (Smaller, subtle text) -->
     <TextView
         android:id="@+id/tvAppliedAt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Applied At"/>
+        android:text="Applied At"
+        android:textSize="12sp"
+        android:textColor="?android:attr/textColorHint"
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Admin Info (Hidden by default) -->
     <TextView
         android:id="@+id/tvAdminInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Admin Info"
-        android:textColor="#555555"
+        android:textSize="12sp"
+        android:textColor="?android:attr/textColorHint"
         android:visibility="gone"
-        android:paddingTop="4dp" />
+        android:paddingTop="4dp"
+        android:background="?attr/selectableItemBackground"/>
 </LinearLayout>

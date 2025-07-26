@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackgroundFloating">
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="?android:attr/colorBackground"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/tvAdminName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"/>
+
+        <TextView
+            android:id="@+id/tvAdminId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/tvDoj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"/>
+    </LinearLayout>
+
+    <!-- Overlay Background -->
+    <View
+        android:id="@+id/overlayBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        android:clickable="true"/>
+
+    <!-- Profile Panel (Slides in from left) -->
+    <LinearLayout
+        android:id="@+id/profilePanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?android:attr/colorBackground"
+        android:elevation="16dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Profile Header -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/colorPrimary"
+                    android:paddingBottom="24dp">
+
+                    <!-- Profile Photo Container -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="32dp"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <!-- Circular Profile Image -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            app:cardCornerRadius="60dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/ivProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="?android:attr/textSelectHandleLeft"
+                                android:scaleType="centerCrop"
+                                android:background="@android:drawable/editbox_background_normal"
+                                android:contentDescription="Profile image"/>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Camera Icon -->
+                        <ImageView
+                            android:id="@+id/cameraIcon"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@android:drawable/ic_menu_camera"
+                            android:background="@android:drawable/editbox_background_normal"
+                           android:layout_marginTop="-19dp"
+                            android:layout_marginLeft="35dp"
+                            android:visibility="gone"
+                            android:contentDescription="Camera icon"/>
+
+                        <!-- User Name Display (Non-editable) -->
+                        <TextView
+                            android:id="@+id/tvDisplayName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"/>
+                    </LinearLayout>
+
+                    <!-- Edit Button -->
+                    <ImageView
+                        android:id="@+id/pencilIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_menu_edit"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="16dp"
+                        android:tint="@android:color/white"/>
+                </RelativeLayout>
+
+                <!-- Editable Fields Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Admin Info Section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Admin Information"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Admin ID:"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <TextView
+                            android:id="@+id/tvAdminIdPanel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Join Date:"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <TextView
+                            android:id="@+id/tvDojPanel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Personal Info Section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personal Information"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/editableFieldsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:orientation="vertical">
+
+                    <!-- Full Name Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Full Name"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etFullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Email Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Phone Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Address Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Date of Birth Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date of Birth"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etDob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Password Field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="16dp"
+                        android:background="?android:attr/selectableItemBackground">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary"/>
+
+                        <EditText
+                            android:id="@+id/etPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:enabled="false"
+                            android:textColor="?android:attr/textColorPrimary"/>
+                    </LinearLayout>
+
+                    <!-- Update Button -->
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:text="Update Profile"
+                        android:backgroundTint="?android:attr/colorPrimary"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone"
+                        style="@style/Widget.AppCompat.Button.Colored"/>
+                        </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

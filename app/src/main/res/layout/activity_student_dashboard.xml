@@ -1,52 +1,228 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:padding="16dp">
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fillViewport="true">
 
-    <TextView android:text="Welcome to Student Dashboard"
-        android:textSize="22sp"
-        android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <Button
-    android:id="@+id/viewNoticesButton"
+        <!-- Header Section -->
+        <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="View Notices"
-    android:layout_marginTop="12dp" />
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    android:padding="24dp"
+    android:elevation="4dp">
 
-    <Button
-    android:id="@+id/btn_submit_query"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Submit Query"
-    android:layout_marginTop="16dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Student Dashboard"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
 
-<Button
-    android:id="@+id/btn_view_queries"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="View My Queries"
-    android:layout_marginTop="8dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <Button
-    android:id="@+id/btn_apply_leave"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Apply for Leave"
-    android:layout_marginTop="16dp"/>
-
-<Button
-    android:id="@+id/btn_view_leave_status"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="View My Leave Applications"
-    android:layout_marginTop="12dp"/>
-
-<Button
-    android:id="@+id/btn_check_attendance"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Check Attendance"
-    android:layout_marginTop="8dp" />
-
-
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
 </LinearLayout>
+
+        <!-- Information & Support Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:layout_margin="16dp"
+            android:elevation="2dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Information &amp; Support"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/viewNoticesButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="View Notices"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_view"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/btn_submit_query"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Submit New Query"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_edit"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/btn_view_queries"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="View My Queries"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:drawableLeft="@android:drawable/ic_menu_manage"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        </LinearLayout>
+
+        <!-- Leave & Attendance Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Leave &amp; Attendance"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btn_apply_leave"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Apply for New Leave"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/btn_view_leave_status"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="View My Leave Applications"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_recent_history"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/btn_check_attendance"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Check My Attendance"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:drawableLeft="@android:drawable/ic_menu_agenda"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        </LinearLayout>
+
+        <!-- General Information Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="2dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="General Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnViewHolidays"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="View Academic Holidays"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_day"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/btnViewMyDetails"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="My Profile Details"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:drawableLeft="@android:drawable/ic_menu_info_details"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        </LinearLayout>
+
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:layout_margin="16dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+    </LinearLayout>
+</ScrollView>

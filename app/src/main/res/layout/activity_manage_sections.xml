@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5"
+    android:background="?android:attr/colorBackgroundFloating"
     android:padding="16dp">
 
     <!-- Header -->
@@ -12,56 +12,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sections for Class 10"
-        android:textColor="#2196F3"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="16dp"
+        android:fontFamily="sans-serif-medium"/>
 
-    <!-- Action Buttons -->
+    <!-- Action Buttons Card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
+        android:background="?android:attr/colorBackground"
+        android:elevation="2dp"
+        android:padding="8dp"
         android:layout_marginBottom="16dp">
 
         <Button
-            android:id="@+id/btnSearchSection"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Search"
-            android:textColor="#2196F3"
-            android:background="@android:color/transparent"
-            android:textAllCaps="false"
-            android:textSize="14sp" />
+    android:id="@+id/btnSearchSection"
+    android:layout_width="wrap_content"
+    android:layout_height="34dp"
+    android:text="Search"
+    android:textColor="?android:attr/textColorSecondary"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:textAllCaps="false"
+    android:textSize="14sp"
+    style="@style/Widget.AppCompat.Button.Borderless"
+    android:drawableStart="@android:drawable/ic_menu_search"
+    android:drawablePadding="4dp"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="24dp"
-            android:background="#E0E0E0"
+            android:background="?android:attr/colorControlHighlight"
             android:layout_marginHorizontal="8dp"/>
 
         <Button
             android:id="@+id/btnAddSection"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:text="Add Section"
-            android:textColor="#FFFFFF"
-            android:background="#2196F3"
+            android:textColor="@android:color/white"
+            android:backgroundTint="?android:attr/colorPrimary"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textAllCaps="false"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            style="@style/Widget.AppCompat.Button.Colored"/>
     </LinearLayout>
 
-    <!-- Sections List -->
+    <!-- Sections List Card -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSections"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="8dp"/>
+        android:padding="8dp"
+        android:background="?android:attr/colorBackground"
+        android:elevation="2dp"/>
 
     <!-- Empty State -->
     <TextView
@@ -70,8 +80,9 @@
         android:layout_height="wrap_content"
         android:text="No Sections Found"
         android:textAlignment="center"
-        android:textColor="#9E9E9E"
+        android:textColor="?android:attr/textColorHint"
         android:textSize="16sp"
         android:layout_marginTop="32dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:fontFamily="sans-serif"/>
 </LinearLayout>

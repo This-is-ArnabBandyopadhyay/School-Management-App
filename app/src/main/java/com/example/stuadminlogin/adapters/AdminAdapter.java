@@ -1,4 +1,3 @@
-// === adapters/AdminAdapter.java ===
 package com.example.stuadminlogin.adapters;
 
 import android.view.LayoutInflater;
@@ -37,9 +36,9 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
     @Override
     public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
         Admin admin = adminList.get(position);
-        holder.username.setText(admin.getUsername());
         holder.fullName.setText(admin.getFullName());
-        holder.createdAt.setText(admin.getCreatedAt());
+        holder.username.setText("Username: " + admin.getUsername());
+        holder.email.setText("Email: " + admin.getEmailId());
 
         holder.editButton.setOnClickListener(v -> listener.onEdit(admin));
         holder.deleteButton.setOnClickListener(v -> listener.onDelete(admin));
@@ -51,14 +50,14 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHol
     }
 
     public static class AdminViewHolder extends RecyclerView.ViewHolder {
-        TextView username, fullName, createdAt;
+        TextView fullName, username, email;
         Button editButton, deleteButton;
 
         public AdminViewHolder(@NonNull View itemView) {
             super(itemView);
-            username = itemView.findViewById(R.id.tvUsername);
             fullName = itemView.findViewById(R.id.tvFullName);
-            createdAt = itemView.findViewById(R.id.tvCreatedAt);
+            username = itemView.findViewById(R.id.tvUsername);
+            email = itemView.findViewById(R.id.tvEmail);
             editButton = itemView.findViewById(R.id.btnEdit);
             deleteButton = itemView.findViewById(R.id.btnDelete);
         }

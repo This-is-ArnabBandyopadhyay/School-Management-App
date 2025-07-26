@@ -71,12 +71,20 @@ public class EditAdminActivity extends AppCompatActivity implements AdminAdapter
         if (cursor.moveToFirst()) {
             do {
                 Admin admin = new Admin(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4)
-                );
+    cursor.getInt(cursor.getColumnIndexOrThrow("admin_id")),
+    cursor.getString(cursor.getColumnIndexOrThrow("username")),
+    cursor.getString(cursor.getColumnIndexOrThrow("full_name")),
+    cursor.getString(cursor.getColumnIndexOrThrow("password")),
+    cursor.getString(cursor.getColumnIndexOrThrow("created_at")),
+    cursor.getString(cursor.getColumnIndexOrThrow("email_id")),
+    cursor.getString(cursor.getColumnIndexOrThrow("phone_no")),
+    cursor.getString(cursor.getColumnIndexOrThrow("address")),
+    cursor.getString(cursor.getColumnIndexOrThrow("dob")),
+    cursor.getString(cursor.getColumnIndexOrThrow("date_of_joining")),
+    cursor.getString(cursor.getColumnIndexOrThrow("profile_photo_uri")),
+    cursor.getString(cursor.getColumnIndexOrThrow("last_login"))
+);
+
                 adminList.add(admin);
             } while (cursor.moveToNext());
         }
@@ -110,12 +118,26 @@ public class EditAdminActivity extends AppCompatActivity implements AdminAdapter
         EditText etUsername = dialogView.findViewById(R.id.etUsername);
         EditText etFullName = dialogView.findViewById(R.id.etFullName);
         EditText etPassword = dialogView.findViewById(R.id.etPassword);
+        EditText etEmailId = dialogView.findViewById(R.id.etEmailId);
+EditText etPhoneNo = dialogView.findViewById(R.id.etPhoneNo);
+EditText etAddress = dialogView.findViewById(R.id.etAddress);
+EditText etDob = dialogView.findViewById(R.id.etDob);
+EditText etDateOfJoining = dialogView.findViewById(R.id.etDateOfJoining);
+//EditText etProfilePhotoUri = dialogView.findViewById(R.id.etProfilePhotoUri);
+//EditText etLastLogin = dialogView.findViewById(R.id.etLastLogin); // Optional
+
         String createdAt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         if (admin != null) {
             etUsername.setText(admin.getUsername());
             etFullName.setText(admin.getFullName());
             etPassword.setText(admin.getPassword());
+            etEmailId.setText(admin.getEmailId());
+            etPhoneNo.setText(admin.getPhoneNo());
+            etAddress.setText(admin.getAddress());
+            etDob.setText(admin.getDob());
+            etDateOfJoining.setText(admin.getDateOfJoining());
+    //etProfilePhotoUri.setText(admin.getProfilePhotoUri());
         }
 
         new AlertDialog.Builder(this)
@@ -123,8 +145,17 @@ public class EditAdminActivity extends AppCompatActivity implements AdminAdapter
                 .setView(dialogView)
                 .setPositiveButton("Save", (dialog, which) -> {
                     ContentValues values = new ContentValues();
-                    values.put("username", etUsername.getText().toString());
+                    values.put("username", etUsername.getText().toString().trim());
                     values.put("full_name", etFullName.getText().toString());
+                    values.put("username", etUsername.getText().toString());
+values.put("full_name", etFullName.getText().toString());
+values.put("password", etPassword.getText().toString().trim());
+values.put("email_id", etEmailId.getText().toString());
+values.put("phone_no", etPhoneNo.getText().toString());
+values.put("address", etAddress.getText().toString());
+values.put("dob", etDob.getText().toString());
+values.put("date_of_joining", etDateOfJoining.getText().toString());
+
                     values.put("password", etPassword.getText().toString());
 
                     SQLiteDatabase db = dbHelper.getWritableDatabase();

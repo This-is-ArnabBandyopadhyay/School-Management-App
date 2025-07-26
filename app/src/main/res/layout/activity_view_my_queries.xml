@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f5f5f5">
+    android:background="#F5F5F5"
+    android:fillViewport="true">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/queries_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/queries_display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your queries will appear here"
+            android:layout_marginBottom="16dp"
+            android:text="My Queries"
+            android:textAlignment="center"
+            android:textColor="#6200EE"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Queries will be added programmatically here -->
+        <TextView
+            android:id="@+id/no_queries_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No queries found"
+            android:textColor="#757575"
             android:textSize="16sp"
-            android:textColor="#333333"
-            android:lineSpacingExtra="4dp"
-            android:padding="16dp"
-            android:background="@android:color/white"/>
-    </ScrollView>
-</LinearLayout>
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="32dp"/>
 
-
-
+    </LinearLayout>
+</ScrollView>

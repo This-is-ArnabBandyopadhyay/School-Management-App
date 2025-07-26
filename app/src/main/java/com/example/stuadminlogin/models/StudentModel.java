@@ -1,4 +1,6 @@
 package com.example.stuadminlogin.models;
+import android.net.Uri;
+
 
 public class StudentModel {
     private int studentId;
@@ -7,6 +9,10 @@ public class StudentModel {
     private String name;
     private String email;
     private String phoneNo;
+    private String address;
+    private String admissionDate;
+    private String profilePhotoUri;
+    private String lastLogin;
     private String fatherName;
     private String motherName;
     private String dob;
@@ -41,7 +47,7 @@ public class StudentModel {
 
     public StudentModel(int studentId, String rollNo, String registrationNo, String name,
                         String email, String phoneNo, String fatherName, String motherName,
-                        String dob, String password, String createdAt) {
+            String dob, String password, String createdAt) {
         this.studentId = studentId;
         this.rollNo = rollNo;
         this.registrationNo = registrationNo;
@@ -54,6 +60,30 @@ public class StudentModel {
         this.password = password;
         this.createdAt = createdAt;
     }
+    
+    public StudentModel(int studentId, String rollNo, String registrationNo, String name,
+                        int sectionId, int classId, String email, String phoneNo,String address,String admissionDate, String profilePhotoUri,String lastLogin,
+                        String fatherName, String motherName, String dob, String password, String createdAt) {
+        this.studentId = studentId;
+        this.rollNo = rollNo;
+        this.registrationNo = registrationNo;
+        this.name = name;
+        this.sectionId = sectionId;
+        this.classId = classId;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.address = address;
+        this.admissionDate = admissionDate;
+        this.profilePhotoUri = profilePhotoUri;
+        this.lastLogin = lastLogin;
+        this.fatherName = fatherName;
+        this.motherName = motherName;
+        this.dob = dob;
+        this.password = password;
+        this.createdAt = createdAt;
+    }
+
+
 
     // --- Getters and Setters ---
 
@@ -79,7 +109,22 @@ public class StudentModel {
     public void setEmail(String email) { this.email = email; }
 
     public String getPhoneNo() { return phoneNo; }
-    public void setPhoneNo(String phoneNo) { this.phoneNo = phoneNo; }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+    
+    public String getAddress() { return address; }
+public void setAddress(String address) { this.address = address; }
+
+public String getAdmissionDate() { return admissionDate; }
+public void setAdmissionDate(String admissionDate) { this.admissionDate = admissionDate; }
+
+public String getProfilePhotoUri() { return profilePhotoUri; }
+public void setProfilePhotoUri(String profilePhotoUri) { this.profilePhotoUri = profilePhotoUri; }
+
+public String getLastLogin() { return lastLogin; }
+public void setLastLogin(String lastLogin) { this.lastLogin = lastLogin; }
 
     public String getFatherName() { return fatherName; }
     public void setFatherName(String fatherName) { this.fatherName = fatherName; }
@@ -108,12 +153,17 @@ public class StudentModel {
     public boolean matches(String keyword) {
         keyword = keyword.toLowerCase();
         return (rollNo != null && rollNo.toLowerCase().contains(keyword)) ||
-               (registrationNo != null && registrationNo.toLowerCase().contains(keyword)) ||
-               (name != null && name.toLowerCase().contains(keyword)) ||
-               (email != null && email.toLowerCase().contains(keyword)) ||
-               (phoneNo != null && phoneNo.toLowerCase().contains(keyword)) ||
-               (fatherName != null && fatherName.toLowerCase().contains(keyword)) ||
-               (motherName != null && motherName.toLowerCase().contains(keyword)) ||
-               (dob != null && dob.toLowerCase().contains(keyword));
+                (registrationNo != null && registrationNo.toLowerCase().contains(keyword)) ||
+                (name != null && name.toLowerCase().contains(keyword)) ||
+                (email != null && email.toLowerCase().contains(keyword)) ||
+                (phoneNo != null && phoneNo.toLowerCase().contains(keyword)) ||
+                (fatherName != null && fatherName.toLowerCase().contains(keyword)) ||
+                (motherName != null && motherName.toLowerCase().contains(keyword)) ||
+                (dob != null && dob.toLowerCase().contains(keyword));
     }
+    
+    public Uri getProfilePhotoUriAsUri() {
+    return profilePhotoUri != null ? Uri.parse(profilePhotoUri) : null;
+}
+
 }

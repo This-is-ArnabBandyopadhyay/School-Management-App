@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+ <!-- Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+        <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
+
     <application
         android:allowBackup="true"
         android:label="School Management App"
@@ -8,6 +17,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+         <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="com.example.stuadminlogin.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
 
         <!-- Entry point -->
         <activity
@@ -48,14 +67,41 @@
         <activity android:name=".activities.ManageSectionsActivity" />
         <activity android:name=".activities.ManageStudentsActivity" />
         <activity android:name=".activities.ViewStudentDetailsActivity" />
+
+
         <activity android:name=".activities.ViewStudentNoticesActivity" />
         <activity android:name=".activities.ViewStudentPendingQueriesActivity" />
         <activity android:name=".activities.ViewStudentRespondedQueriesActivity" />
-        <activity android:name=".activities.AdminLeaveReviewActivity" />
+
+
+<activity android:name=".activities.AdminLeaveReviewActivity" />
 <activity android:name=".activities.StudentLeaveListActivity" />
 <activity android:name=".activities.LeaveApplicationFormActivity" />
+
+
 <activity android:name=".activities.UpdateAttendanceActivity" />
 <activity android:name=".activities.ViewAttendanceActivity" />
+
+
+<activity android:name=".activities.ManageHolidaysActivity" />
+<activity android:name=".activities.ViewHolidaysActivity" />
+
+<activity android:name=".activities.StudentProfileActivity" />
+<activity android:name=".activities.AdminProfileActivity" />
+
+<activity android:name=".activities.ViewSectionDetailsActivity" />
+<activity android:name=".activities.BulkUpdateAttendanceActivity" />
+
+ 
+
+        <!-- Settings -->
+        <activity android:name=".activities.SettingsActivity" />
+
+        <!-- About -->
+        <activity android:name=".activities.AboutActivity" />
+
+
+
 
 
 

@@ -3,15 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#f5f5f5"
-    android:padding="16dp">
+    android:background="#f8f9fa"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pending Queries"
+        android:textSize="20sp"
+        android:textColor="#070707e1"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"/>
 
     <ListView
         android:id="@+id/query_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#e0e0e0"
-        android:dividerHeight="8dp"
-        android:background="@android:color/transparent"
-        android:clipToPadding="false"/>
+        android:dividerHeight="1dp"
+        android:background="@android:color/white"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        android:fastScrollEnabled="true"
+        android:elevation="4dp"
+        android:outlineProvider="bounds"/>
 </LinearLayout>

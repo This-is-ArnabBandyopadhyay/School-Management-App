@@ -51,10 +51,10 @@ public void onBindViewHolder(@NonNull SectionViewHolder holder, int position) {
     holder.btnEdit.setOnClickListener(v -> listener.onEdit(section));
     holder.btnDelete.setOnClickListener(v -> listener.onDelete(section));
 
-    // ✅ Open ManageStudentsActivity when item is clicked
+    // ✅ Open ViewSectionDetailsActivity when item is clicked
     holder.itemView.setOnClickListener(v -> {
         Context context = v.getContext();
-        Intent intent = new Intent(context, com.example.stuadminlogin.activities.ManageStudentsActivity.class);
+        Intent intent = new Intent(context, com.example.stuadminlogin.activities.ViewSectionDetailsActivity.class);
         intent.putExtra("section_id", section.getId());
         intent.putExtra("class_id", section.getClassId()); // changed getClassName() to getClassId()
         context.startActivity(intent);

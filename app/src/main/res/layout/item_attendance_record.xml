@@ -3,28 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground">
 
-    <!-- Heading -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Attendance Record"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:paddingBottom="8dp"/>
+    <!-- Heading with improved styling -->
+    
 
-    <!-- Entry with shadow effect -->
+    <!-- Attendance entry card with better visual hierarchy -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:drawable/dialog_holo_light_frame"
+        android:background="@android:color/white"
         android:padding="16dp"
         android:layout_marginBottom="8dp"
-        android:elevation="2dp">
+        android:elevation="4dp"
+        android:outlineProvider="bounds">
 
+        <!-- Date text with improved spacing -->
         <TextView
             android:id="@+id/attendance_date"
             android:layout_width="0dp"
@@ -32,8 +28,10 @@
             android:layout_height="wrap_content"
             android:text="12 July 2023"
             android:textSize="16sp"
-            android:textColor="#333333"/>
+            android:textColor="@android:color/black"
+            android:paddingEnd="8dp"/>
 
+        <!-- Status indicator with better visual treatment -->
         <TextView
             android:id="@+id/attendance_status"
             android:layout_width="wrap_content"
@@ -41,6 +39,9 @@
             android:text="Present"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="#4CAF50"/>
+            android:textColor="@android:color/holo_green_dark"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"/>
     </LinearLayout>
 </LinearLayout>

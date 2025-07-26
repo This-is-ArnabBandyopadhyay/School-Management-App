@@ -3,18 +3,31 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@android:color/white"
+    android:padding="24dp">
 
     <TextView
         android:text="My Leave Applications"
-        android:textSize="20sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:layout_width="wrap_content"
+        android:textColor="@android:color/holo_blue_dark"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="24dp"/>
 
     <ListView
         android:id="@+id/leaveListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:scrollbars="vertical" />
+
 </LinearLayout>

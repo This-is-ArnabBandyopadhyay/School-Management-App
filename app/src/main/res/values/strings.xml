@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">stuadminlogin</string>
+    
     <string-array name="attendance_status_array">
-    <item>Present</item>
-    <item>Absent</item>
-    <item>Leave</item>
-</string-array>
+        <item>Present</item>
+        <item>Absent</item>
+        <item>Leave</item>
+    </string-array>
 
+    <string name="roll_no_format">Roll No: %1$s</string>
+    <string name="reg_no_format">Reg No: %1$s</string>
+    <string name="class_section_format">Class: %1$s | Section: %2$s</string>
+    <string name="admission_date_format">Admission Date: %1$s</string>
 </resources>
-

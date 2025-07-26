@@ -145,6 +145,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         EditText father = view.findViewById(R.id.et_father);
         EditText mother = view.findViewById(R.id.et_mother);
         EditText dob = view.findViewById(R.id.et_dob);
+        EditText address = view.findViewById(R.id.et_address);
         EditText password = view.findViewById(R.id.et_password);
 
         // Pre-fill existing data
@@ -156,6 +157,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         father.setText(student.getFatherName());
         mother.setText(student.getMotherName());
         dob.setText(student.getDob());
+        address.setText(student.getAddress());
+
         password.setText(student.getPassword());
 
         builder.setPositiveButton("Update", (dialog, which) -> {
@@ -167,6 +170,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             student.setFatherName(father.getText().toString());
             student.setMotherName(mother.getText().toString());
             student.setDob(dob.getText().toString());
+            student.setAddress(address.getText().toString());
             student.setPassword(password.getText().toString());
 
             db.updateStudent(student);

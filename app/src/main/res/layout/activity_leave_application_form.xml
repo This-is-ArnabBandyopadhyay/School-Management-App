@@ -2,55 +2,80 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="#f5f5f5">
+    android:background="?android:attr/colorBackgroundFloating"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="24dp">
 
+        <!-- Header -->
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Leave Application"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="?attr/colorPrimary"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="sans-serif-medium"/>
 
+        <!-- From Date Field -->
         <EditText
             android:id="@+id/etFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="From Date (YYYY-MM-DD)"
             android:inputType="date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp" />
+            android:padding="16dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="16dp"
+            android:textColorHint="?android:attr/textColorHint"
+            android:textColor="?android:attr/textColorPrimary"/>
 
+        <!-- To Date Field -->
         <EditText
             android:id="@+id/etTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="To Date (YYYY-MM-DD)"
             android:inputType="date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp" />
+            android:padding="16dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="16dp"
+            android:textColorHint="?android:attr/textColorHint"
+            android:textColor="?android:attr/textColorPrimary"/>
 
+        <!-- Reason Field -->
         <EditText
             android:id="@+id/etReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="Reason for Leave"
             android:inputType="textMultiLine"
-            android:minLines="4"
+            android:minLines="5"
             android:gravity="top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp" />
+            android:padding="16dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_marginBottom="24dp"
+            android:textColorHint="?android:attr/textColorHint"
+            android:textColor="?android:attr/textColorPrimary"/>
 
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
-            android:text="Submit Leave Application"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
+            android:layout_height="56dp"
+            android:text="Submit Leave Application"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="2dp"
+            style="@style/Widget.AppCompat.Button.Colored"/>
 
     </LinearLayout>
 </ScrollView>

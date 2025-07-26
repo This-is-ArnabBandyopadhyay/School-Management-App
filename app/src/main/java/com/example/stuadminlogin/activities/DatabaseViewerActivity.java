@@ -164,7 +164,14 @@ public class DatabaseViewerActivity extends Activity {
                 sb.append("ID: ").append(c.getInt(c.getColumnIndex("admin_id")))
                   .append("\nUsername: ").append(c.getString(c.getColumnIndex("username")))
                   .append("\nFull Name: ").append(c.getString(c.getColumnIndex("full_name")))
-                  .append("\nPassword: ").append(c.getString(c.getColumnIndex("password")))
+                    .append("\nPassword: ").append(c.getString(c.getColumnIndex("password")))
+                    .append("\nEmail ID: ").append(c.getString(c.getColumnIndex("email_id")))
+                    .append("\nPhone No: ").append(c.getString(c.getColumnIndex("phone_no")))
+                    .append("\nAddress: ").append(c.getString(c.getColumnIndex("address")))
+                    .append("\nDOB: ").append(c.getString(c.getColumnIndex("dob")))
+                    .append("\nDate of Joining: ").append(c.getString(c.getColumnIndex("date_of_joining")))
+                  .append("\nProfile Photo URI: ").append(c.getString(c.getColumnIndex("profile_photo_uri")))
+                  .append("\nLast Login: ").append(c.getString(c.getColumnIndex("last_login")))
                   .append("\nCreated At: ").append(c.getString(c.getColumnIndex("created_at"))).append("\n\n");
             }
             c.close();
@@ -194,7 +201,7 @@ sb.append("------ STUDENTS TABLE ------\n");
 
  c = db.rawQuery(
     "SELECT students.student_id, students.roll_no, students.registration_no, students.name, students.email, students.phone_no, " +
-    "students.fathername, students.mothername, students.dob, students.password, students.created_at, " +
+    "students.fathername, students.mothername, students.dob, students.password, students.address, students.admission_date, students.profile_photo_uri, students.last_login, students.created_at, " +
     "sections.section_name AS section_name, classes.class_name AS class_name " +
     "FROM students " +
     "JOIN sections ON students.section_id = sections.section_id " +
@@ -212,7 +219,11 @@ while (c.moveToNext()) {
       .append("\nDOB: ").append(c.getString(c.getColumnIndexOrThrow("dob")))
       .append("\nPassword: ").append(c.getString(c.getColumnIndexOrThrow("password")))
       .append("\nClass Name: ").append(c.getString(c.getColumnIndexOrThrow("class_name")))
-      .append("\nSection Name: ").append(c.getString(c.getColumnIndexOrThrow("section_name")))
+        .append("\nSection Name: ").append(c.getString(c.getColumnIndexOrThrow("section_name")))
+        .append("\nAddress: ").append(c.getString(c.getColumnIndexOrThrow("address")))
+      .append("\nAdmission Date: ").append(c.getString(c.getColumnIndexOrThrow("admission_date")))
+      .append("\nProfile Photo URI: ").append(c.getString(c.getColumnIndexOrThrow("profile_photo_uri")))
+      .append("\nLast Login: ").append(c.getString(c.getColumnIndexOrThrow("last_login")))
       .append("\nCreated At: ").append(c.getString(c.getColumnIndexOrThrow("created_at")))
       .append("\n\n");
 }
@@ -385,6 +396,24 @@ while (c.moveToNext()) {
 }
 c.close();
 
+// ===== HOLIDAYS =====
+sb.append("------ HOLIDAYS TABLE ------\n");
+c = db.rawQuery(
+        "SELECT h.holiday_id, h.title, h.description, h.holiday_date, h.created_at, " +
+        "a.full_name AS admin_name " +
+        "FROM holidays h " +
+        "JOIN admins a ON h.created_by_admin_id = a.admin_id", null);
+
+while (c.moveToNext()) {
+    sb.append("Holiday ID: ").append(c.getInt(c.getColumnIndexOrThrow("holiday_id")))
+      .append("\nTitle: ").append(c.getString(c.getColumnIndexOrThrow("title")))
+      .append("\nDescription: ").append(c.getString(c.getColumnIndexOrThrow("description")))
+      .append("\nHoliday Date: ").append(c.getString(c.getColumnIndexOrThrow("holiday_date")))
+      .append("\nCreated By: ").append(c.getString(c.getColumnIndexOrThrow("admin_name")))
+      .append("\nCreated At: ").append(c.getString(c.getColumnIndexOrThrow("created_at")))
+      .append("\n\n");
+}
+c.close();
 
 
 

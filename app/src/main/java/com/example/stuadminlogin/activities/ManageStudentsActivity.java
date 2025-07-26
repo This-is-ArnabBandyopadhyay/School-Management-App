@@ -38,9 +38,9 @@ public class ManageStudentsActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        // ✅ Fetch section ID passed from previous activity
+        // Fetch section ID passed from previous activity
         sectionId = getIntent().getIntExtra("section_id", -1);
-        classId = getIntent().getIntExtra("class_id", -1); // ✅ Use this as needed
+        classId = getIntent().getIntExtra("class_id", -1);
 
         if (sectionId == -1) {
             Toast.makeText(this, "Invalid section ID passed", Toast.LENGTH_SHORT).show();
@@ -75,6 +75,8 @@ public class ManageStudentsActivity extends AppCompatActivity {
         EditText name = view.findViewById(R.id.et_name);
         EditText email = view.findViewById(R.id.et_email);
         EditText phone = view.findViewById(R.id.et_phone);
+        EditText address = view.findViewById(R.id.et_address);
+        EditText admissionDate = view.findViewById(R.id.et_admission_date);
         EditText father = view.findViewById(R.id.et_father);
         EditText mother = view.findViewById(R.id.et_mother);
         EditText dob = view.findViewById(R.id.et_dob);
@@ -84,12 +86,14 @@ public class ManageStudentsActivity extends AppCompatActivity {
             try {
                 StudentModel student = new StudentModel();
                 student.setSectionId(sectionId);
-                student.setClassId(classId); // Set class ID if needed
+                student.setClassId(classId);
                 student.setRollNo(roll.getText().toString().trim());
                 student.setRegistrationNo(reg.getText().toString().trim());
                 student.setName(name.getText().toString().trim());
                 student.setEmail(email.getText().toString().trim());
                 student.setPhoneNo(phone.getText().toString().trim());
+                student.setAddress(address.getText().toString().trim());
+                student.setAdmissionDate(admissionDate.getText().toString().trim());
                 student.setFatherName(father.getText().toString().trim());
                 student.setMotherName(mother.getText().toString().trim());
                 student.setDob(dob.getText().toString().trim());
@@ -120,21 +124,86 @@ public class ManageStudentsActivity extends AppCompatActivity {
         EditText filterName = view.findViewById(R.id.filterName);
         EditText filterRollNo = view.findViewById(R.id.filterRollNo);
         EditText filterRegNo = view.findViewById(R.id.filterRegNo);
+        EditText filterEmail = view.findViewById(R.id.filterEmail);
+        EditText filterPhone = view.findViewById(R.id.filterPhone);
+        EditText filterAddress = view.findViewById(R.id.filterAddress);
+        EditText filterAdmissionDate = view.findViewById(R.id.filterAdmissionDate);
+        EditText filterFatherName = view.findViewById(R.id.filterFatherName);
+        EditText filterMotherName = view.findViewById(R.id.filterMotherName);
+        EditText filterDob = view.findViewById(R.id.filterDob);
+        Button btnClearFilters = view.findViewById(R.id.btnClearFilters);
 
-        builder.setPositiveButton("Filter", (dialog, which) -> {
+        AlertDialog dialog = builder.create();
+
+        btnClearFilters.setOnClickListener(v -> {
+            filterName.setText("");
+            filterRollNo.setText("");
+            filterRegNo.setText("");
+            filterEmail.setText("");
+            filterPhone.setText("");
+            filterAddress.setText("");
+            filterAdmissionDate.setText("");
+            filterFatherName.setText("");
+            filterMotherName.setText("");
+            filterDob.setText("");
+        });
+
+        builder.setPositiveButton("Filter", (d, which) -> {
             try {
                 List<StudentModel> filteredList = new ArrayList<>();
 
                 for (StudentModel student : db.getStudentsBySection(sectionId)) {
-                    boolean matchName = TextUtils.isEmpty(filterName.getText()) || student.getName().toLowerCase().contains(filterName.getText().toString().trim().toLowerCase());
-                    boolean matchRoll = TextUtils.isEmpty(filterRollNo.getText()) || student.getRollNo().equalsIgnoreCase(filterRollNo.getText().toString().trim());
-                    boolean matchReg = TextUtils.isEmpty(filterRegNo.getText()) || student.getRegistrationNo().equalsIgnoreCase(filterRegNo.getText().toString().trim());
+                    boolean matches = true;
+                    
+                    if (!TextUtils.isEmpty(filterName.getText())) {
+                        matches = matches && student.getName().toLowerCase()
+                            .contains(filterName.getText().toString().trim().toLowerCase());
+                    }
+                    if (!TextUtils.isEmpty(filterRollNo.getText())) {
+                        matches = matches && student.getRollNo().equalsIgnoreCase(
+                            filterRollNo.getText().toString().trim());
+                    }
+                    if (!TextUtils.isEmpty(filterRegNo.getText())) {
+                        matches = matches && student.getRegistrationNo().equalsIgnoreCase(
+                            filterRegNo.getText().toString().trim());
+                    }
+                    if (!TextUtils.isEmpty(filterEmail.getText())) {
+                        matches = matches && student.getEmail().toLowerCase()
+                            .contains(filterEmail.getText().toString().trim().toLowerCase());
+                    }
+                    if (!TextUtils.isEmpty(filterPhone.getText())) {
+                        matches = matches && student.getPhoneNo().contains(
+                            filterPhone.getText().toString().trim());
+                    }
+                    if (!TextUtils.isEmpty(filterAddress.getText())) {
+                        matches = matches && student.getAddress().toLowerCase()
+                            .contains(filterAddress.getText().toString().trim().toLowerCase());
+                    }
+                    if (!TextUtils.isEmpty(filterAdmissionDate.getText())) {
+                        matches = matches && student.getAdmissionDate().equals(
+                            filterAdmissionDate.getText().toString().trim());
+                    }
+                    if (!TextUtils.isEmpty(filterFatherName.getText())) {
+                        matches = matches && student.getFatherName().toLowerCase()
+                            .contains(filterFatherName.getText().toString().trim().toLowerCase());
+                    }
+                    if (!TextUtils.isEmpty(filterMotherName.getText())) {
+                        matches = matches && student.getMotherName().toLowerCase()
+                            .contains(filterMotherName.getText().toString().trim().toLowerCase());
+                    }
+                    if (!TextUtils.isEmpty(filterDob.getText())) {
+                        matches = matches && student.getDob().equals(
+                            filterDob.getText().toString().trim());
+                    }
 
-                    if (matchName && matchRoll && matchReg) {
+                    if (matches) {
                         filteredList.add(student);
                     }
                 }
 
+                if (filteredList.isEmpty()) {
+                    Toast.makeText(this, "No students match the filters", Toast.LENGTH_SHORT).show();
+                }
                 adapter.updateList(filteredList);
             } catch (Exception e) {
                 Toast.makeText(this, "Error during filtering: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -149,5 +218,6 @@ public class ManageStudentsActivity extends AppCompatActivity {
     private void refreshStudentList() {
         studentList = db.getStudentsBySection(sectionId);
         adapter.updateList(studentList);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="@android:color/background_light">
 
     <!-- Header Section -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ATTENDANCE MARKING"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#333333"
+        android:textColor="@android:color/black"
         android:gravity="center"
-        android:paddingBottom="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#E1F5FE"/>
+        android:padding="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_blue_light"/>
 
-    <!-- Student Info Section -->
-    <TextView
-        android:id="@+id/tvStudentName"
-        android:text="Student Name"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <!-- Student Info Card -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="12dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"/>
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:padding="16dp">
 
-    <!-- Date Selection Section -->
+        <TextView
+            android:id="@+id/tvStudentName"
+            android:text="Student Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+
+    <!-- Date Selection Card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp">
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:elevation="4dp">
 
         <TextView
             android:id="@+id/tvSelectedDate"
             android:text="Selected Date: "
             android:textSize="16sp"
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -57,8 +65,9 @@
             android:layout_height="36dp"
             android:text="CHOOSE DATE"
             android:textAllCaps="true"
-            android:textSize="14sp"
-            android:background="@android:drawable/btn_default"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_dark"
             android:minWidth="120dp"/>
     </LinearLayout>
 
@@ -69,6 +78,7 @@
         android:text="MARK ATTENDANCE"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
         android:paddingLeft="8dp"/>
@@ -77,7 +87,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:weightSum="3">
 
         <Button
             android:id="@+id/btnPresent"
@@ -87,8 +98,9 @@
             android:layout_marginEnd="4dp"
             android:layout_height="48dp"
             android:textAllCaps="true"
-            android:textColor="#FFFFFF"
-            android:background="#4CAF50"/>
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_green_dark"
+            android:elevation="2dp"/>
 
         <Button
             android:id="@+id/btnAbsent"
@@ -98,8 +110,9 @@
             android:layout_marginHorizontal="4dp"
             android:layout_height="48dp"
             android:textAllCaps="true"
-            android:textColor="#FFFFFF"
-            android:background="#F44336"/>
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark"
+            android:elevation="2dp"/>
 
         <Button
             android:id="@+id/btnLeave"
@@ -109,8 +122,8 @@
             android:layout_marginStart="4dp"
             android:layout_height="48dp"
             android:textAllCaps="true"
-            android:textColor="#FFFFFF"
-            android:background="#FF9800"/>
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_orange_dark"
+            android:elevation="2dp"/>
     </LinearLayout>
-
 </LinearLayout>

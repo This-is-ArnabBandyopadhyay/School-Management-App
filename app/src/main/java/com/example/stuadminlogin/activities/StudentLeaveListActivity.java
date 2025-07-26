@@ -35,14 +35,14 @@ public class StudentLeaveListActivity extends AppCompatActivity {
     db = new DatabaseHelper(this);
     rv = findViewById(R.id.recyclerStudentLeaves);
     rv.setLayoutManager(new LinearLayoutManager(this));
-    btnNew = findViewById(R.id.btnNewLeave);
+    // btnNew = findViewById(R.id.btnNewLeave);
 
-    btnNew.setOnClickListener(v -> {
-        // ✅ Pass student ID to the form as well
-        Intent intent = new Intent(this, LeaveApplicationFormActivity.class);
-        intent.putExtra("student_id", currentStudentId);
-        startActivity(intent);
-    });
+    // btnNew.setOnClickListener(v -> {
+    //     // ✅ Pass student ID to the form as well
+    //     Intent intent = new Intent(this, LeaveApplicationFormActivity.class);
+    //     intent.putExtra("student_id", currentStudentId);
+    //     startActivity(intent);
+    // });
 }
 
     @Override

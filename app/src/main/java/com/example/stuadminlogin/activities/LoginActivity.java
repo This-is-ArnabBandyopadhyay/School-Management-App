@@ -101,6 +101,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 import com.example.stuadminlogin.R;
 import com.example.stuadminlogin.database.DatabaseHelper;
@@ -132,61 +136,70 @@ public class LoginActivity extends Activity {
 
         // 🔐 Login Button Logic
         loginButton.setOnClickListener(v -> {
-            int selectedId = roleGroup.getCheckedRadioButtonId();
-            String user = username.getText().toString().trim();
-            String pass = password.getText().toString().trim();
+    int selectedId = roleGroup.getCheckedRadioButtonId();
+    String user = username.getText().toString().trim();
+    String pass = password.getText().toString().trim();
 
-            if (selectedId == -1) {
-                Toast.makeText(this, "Please select a role", Toast.LENGTH_SHORT).show();
-                return;
+    if (selectedId == -1) {
+        Toast.makeText(this, "Please select a role", Toast.LENGTH_SHORT).show();
+        return;
+    }
+
+    SQLiteDatabase db = dbHelper.getWritableDatabase(); // 🔄 Use writable since we'll update
+
+    String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+    if (selectedId == R.id.radio_admin) {
+        try (Cursor cursorAdmin = db.rawQuery("SELECT * FROM admins WHERE username=? AND password=?", new String[]{user, pass})) {
+            if (cursorAdmin != null && cursorAdmin.moveToFirst()) {
+                int adminId = cursorAdmin.getInt(cursorAdmin.getColumnIndexOrThrow("admin_id"));
+
+                // ✅ Update last_login
+                db.execSQL("UPDATE admins SET last_login=? WHERE admin_id=?", new Object[]{currentDateTime, adminId});
+
+                // Save to SharedPreferences
+                sharedPreferences.edit().putInt("admin_id", adminId).apply();
+
+                // Start Admin Dashboard
+                Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+                intent.putExtra("admin_id", adminId);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Invalid Admin credentials", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Log.e("LoginError", "Admin login failed", e);
+            Toast.makeText(this, "Admin login error!", Toast.LENGTH_SHORT).show();
+        }
 
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
+    } else if (selectedId == R.id.radio_student) {
+        try (Cursor cursorStudent = db.rawQuery("SELECT * FROM students WHERE roll_no=? AND password=?", new String[]{user, pass})) {
+            if (cursorStudent != null && cursorStudent.moveToFirst()) {
+                int studentId = cursorStudent.getInt(cursorStudent.getColumnIndexOrThrow("student_id"));
 
-            if (selectedId == R.id.radio_admin) {
-                try (Cursor cursorAdmin = db.rawQuery("SELECT * FROM admins WHERE username=? AND password=?", new String[]{user, pass})) {
-                    if (cursorAdmin != null && cursorAdmin.moveToFirst()) {
-                        int adminId = cursorAdmin.getInt(cursorAdmin.getColumnIndexOrThrow("admin_id"));
+                // ✅ Update last_login
+                db.execSQL("UPDATE students SET last_login=? WHERE student_id=?", new Object[]{currentDateTime, studentId});
 
-                        // Save to SharedPreferences
-                        sharedPreferences.edit().putInt("admin_id", adminId).apply();
+                // Save to SharedPreferences
+                sharedPreferences.edit().putInt("student_id", studentId).apply();
 
-                        // Start Admin Dashboard
-                        Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
-                        intent.putExtra("admin_id", adminId);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Invalid Admin credentials", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    Log.e("LoginError", "Admin login failed", e);
-                    Toast.makeText(this, "Admin login error!", Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (selectedId == R.id.radio_student) {
-                try (Cursor cursorStudent = db.rawQuery("SELECT * FROM students WHERE roll_no=? AND password=?", new String[]{user, pass})) {
-                    if (cursorStudent != null && cursorStudent.moveToFirst()) {
-                        int studentId = cursorStudent.getInt(cursorStudent.getColumnIndexOrThrow("student_id"));
-
-                        // Save to SharedPreferences
-                        sharedPreferences.edit().putInt("student_id", studentId).apply();
-
-                        // Start Student Dashboard
-                        Intent intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
-                        intent.putExtra("student_id", studentId);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Invalid Student credentials", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    Log.e("LoginError", "Student login failed", e);
-                    Toast.makeText(this, "Student login error!", Toast.LENGTH_SHORT).show();
-                }
+                // Start Student Dashboard
+                Intent intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
+                intent.putExtra("student_id", studentId);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Invalid Student credentials", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Log.e("LoginError", "Student login failed", e);
+            Toast.makeText(this, "Student login error!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-            db.close();
-        });
+    db.close();
+});
+
     }
 }

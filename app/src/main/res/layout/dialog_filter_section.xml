@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <EditText
-        android:id="@+id/editFilterSectionName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Section Name" />
+        android:layout_marginBottom="16dp">
 
-    <Button
-        android:id="@+id/btnApplySectionFilter"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editSearchSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Section Name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Apply Filter"
-        android:layout_marginTop="16dp" />
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="#1c1c1dff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textColor="#121112ff"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
 </LinearLayout>
