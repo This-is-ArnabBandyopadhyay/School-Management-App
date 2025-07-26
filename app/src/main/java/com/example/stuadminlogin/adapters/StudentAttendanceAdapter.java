@@ -42,18 +42,27 @@ public class StudentAttendanceAdapter extends RecyclerView.Adapter<StudentAttend
     }
 
     // 👉 Date formatter: "2025-08-14" → "14 August 2025 (Thursday)"
-    private String formatDateWithDay(String inputDate) {
-        try {
-            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date date = inputFormat.parse(inputDate);
+    public String formatDateWithDay(String inputDate) {
+    try {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        Date date = inputFormat.parse(inputDate);
 
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy (EEEE)", Locale.getDefault());
-            return outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return inputDate; // fallback
-        }
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy (EEEE)", Locale.getDefault());
+        return outputFormat.format(date);
+    } catch (ParseException e) {
+        e.printStackTrace();
+        return inputDate; // fallback
     }
+}
+
+    // Add this to your StudentAttendanceAdapter class
+public void updateList(List<Attendance> newList) {
+    this.list.clear();
+    if (newList != null) {
+        this.list.addAll(newList);
+    }
+    notifyDataSetChanged();
+}
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, status;
