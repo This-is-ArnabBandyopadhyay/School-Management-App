@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // 🟢 Student Groups
                 db.execSQL("CREATE TABLE student_groups (" +
                                 "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                "group_name TEXT NOT NULL)");
+                                "group_name TEXT NOT NULL UNIQUE)");
 
                 db.execSQL("INSERT INTO student_groups (group_name) VALUES ('Class 10A'), ('Science Club'), ('Eco Club'),('Math Olympiad')");
 

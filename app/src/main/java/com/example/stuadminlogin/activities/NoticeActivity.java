@@ -14,7 +14,7 @@ import java.util.*;
 
 public class NoticeActivity extends AppCompatActivity {
 
-    EditText titleEdit, descEdit, individualIdsEdit, groupIdsEdit, classNamesEdit, classSectionPairsEdit;
+    EditText titleEdit, descEdit, individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit;
     CheckBox sendToAllCheck;
     Button sendNoticeBtn;
     DatabaseHelper dbHelper;
@@ -28,7 +28,7 @@ public class NoticeActivity extends AppCompatActivity {
         titleEdit = findViewById(R.id.noticeTitle);
         descEdit = findViewById(R.id.noticeDesc);
         individualIdsEdit = findViewById(R.id.studentIds);
-        groupIdsEdit = findViewById(R.id.groupIds);
+        groupNamesEdit = findViewById(R.id.groupIds); // Renamed to reflect it's names now
         classNamesEdit = findViewById(R.id.classNames);
         classSectionPairsEdit = findViewById(R.id.classSectionPairs);
         sendToAllCheck = findViewById(R.id.sendToAllCheck);
@@ -42,9 +42,9 @@ public class NoticeActivity extends AppCompatActivity {
             return;
         }
 
-        // ✅ Disable/Enable fields based on SendToAll checkbox
+        // Disable/Enable fields based on SendToAll checkbox
         EditText[] allInputs = new EditText[]{
-                individualIdsEdit, groupIdsEdit, classNamesEdit, classSectionPairsEdit
+                individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit
         };
 
         sendToAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -65,7 +65,7 @@ public class NoticeActivity extends AppCompatActivity {
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            // ✅ Individuals by roll_no
+            // Individuals by roll_no
             List<Integer> validStudentIds = new ArrayList<>();
             for (String roll : individualIdsEdit.getText().toString().split(",")) {
                 roll = roll.trim();
@@ -83,7 +83,7 @@ public class NoticeActivity extends AppCompatActivity {
                 }
             }
 
-            // ✅ Class name input: allow "1" or "Class 1"
+            // Class name input
             List<Integer> validClassIds = new ArrayList<>();
             for (String className : classNamesEdit.getText().toString().split(",")) {
                 className = className.trim();
@@ -103,7 +103,7 @@ public class NoticeActivity extends AppCompatActivity {
                 }
             }
 
-            // ✅ Section input: allow "1-A" or "Class 1-A"
+            // Section input
             List<Integer> validSectionIds = new ArrayList<>();
             for (String input : classSectionPairsEdit.getText().toString().split(",")) {
                 input = input.trim();
@@ -144,17 +144,17 @@ public class NoticeActivity extends AppCompatActivity {
                 }
             }
 
-            // ✅ Groups
+            // Groups by name
             List<Integer> validGroupIds = new ArrayList<>();
-            for (String gid : groupIdsEdit.getText().toString().split(",")) {
-                gid = gid.trim();
-                if (!gid.isEmpty()) {
-                    Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_id = ?",
-                            new String[]{gid});
+            for (String groupName : groupNamesEdit.getText().toString().split(",")) {
+                groupName = groupName.trim();
+                if (!groupName.isEmpty()) {
+                    Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_name = ?",
+                            new String[]{groupName});
                     if (cursor.moveToFirst()) {
                         validGroupIds.add(cursor.getInt(0));
                     } else {
-                        Toast.makeText(this, "Group ID not found: " + gid, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Group not found: " + groupName, Toast.LENGTH_SHORT).show();
                         cursor.close();
                         return;
                     }
@@ -162,7 +162,7 @@ public class NoticeActivity extends AppCompatActivity {
                 }
             }
 
-            // ✅ Insert into notices table
+            // Insert into notices table
             ContentValues notice = new ContentValues();
             notice.put("admin_id", adminId);
             notice.put("title", title);
