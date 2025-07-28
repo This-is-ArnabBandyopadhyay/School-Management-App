@@ -92,6 +92,11 @@
 <activity android:name=".activities.ViewSectionDetailsActivity" />
 <activity android:name=".activities.BulkUpdateAttendanceActivity" />
 
+<activity android:name=".activities.AddEditGroupActivity"/>
+<activity android:name=".activities.GroupManagementActivity" />
+<activity android:name=".activities.GroupMembersActivity" />
+<activity android:name=".activities.AddMembersActivity" />
+
  
 
         <!-- Settings -->

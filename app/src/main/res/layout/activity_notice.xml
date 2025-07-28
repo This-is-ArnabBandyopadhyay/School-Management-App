@@ -9,7 +9,7 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="?attr/actionBarSize">
+        android:paddingTop="72dp">
 
         <!-- Notice Title -->
         <TextView

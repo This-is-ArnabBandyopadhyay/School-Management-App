@@ -138,6 +138,19 @@
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
+                <Button
+            android:id="@+id/btn_manage_groups"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Manage Student Groups"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@android:drawable/ic_menu_agenda"
+            android:drawablePadding="8dp"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+
             <Button
                 android:id="@+id/btnManageHolidays"
                 android:layout_width="match_parent"
@@ -150,6 +163,14 @@
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
         </LinearLayout>
+
+        <!-- Add a new card for Group Management -->
+    
+
+       
+           
+
+        
 
         <!-- Admin Settings Card -->
         <LinearLayout

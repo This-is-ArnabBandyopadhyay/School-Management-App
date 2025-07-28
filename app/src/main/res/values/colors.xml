@@ -17,7 +17,9 @@
 <color name="text_secondary">#757575</color>
 <color name="error_color">#B00020</color>
 <color name="primary_color">#6200EE</color>
+<color name="primary">#6200EE</color> <!-- Material Design primary color -->
 
+<color name="accent">#03DAC6</color>
 <color name="divider_color">#E0E0E0</color>
 
 

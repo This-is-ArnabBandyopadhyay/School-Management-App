@@ -18,7 +18,7 @@
             android:layout_marginBottom="16dp"
             android:text="My Queries"
             android:textAlignment="center"
-            android:textColor="#6200EE"
+            android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 

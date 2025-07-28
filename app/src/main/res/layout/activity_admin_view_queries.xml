@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:text="Pending Queries"
         android:textSize="20sp"
-        android:textColor="#070707e1"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="18dp"
         android:padding="8dp"/>
 
     <ListView

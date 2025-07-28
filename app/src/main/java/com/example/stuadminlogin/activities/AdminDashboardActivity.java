@@ -18,6 +18,7 @@ public class AdminDashboardActivity extends Activity {
 
     Button issueNoticeBtn, viewAllQueriesBtn;
     Button manageAdminsBtn, manageLeaveBtn, manageClassesBtn, btnManageHolidays, btnViewHolidays, btnViewProfile, btnLogout;
+    Button btnManageGroups; // New button for group management
     TextView welcomeText;
     int currentAdminId;
     DatabaseHelper dbHelper;
@@ -41,6 +42,7 @@ public class AdminDashboardActivity extends Activity {
         btnViewProfile = findViewById(R.id.btnViewProfile);
         btnLogout = findViewById(R.id.btnLogout);
         welcomeText = findViewById(R.id.welcomeText);
+        btnManageGroups = findViewById(R.id.btn_manage_groups); // Initialize the new button
 
         // Get admin ID (from intent or SharedPreferences)
         currentAdminId = getIntent().getIntExtra("admin_id", -1);
@@ -96,6 +98,12 @@ public class AdminDashboardActivity extends Activity {
         btnViewProfile.setOnClickListener(v -> {
             Intent intent = new Intent(this, AdminProfileActivity.class);
             intent.putExtra("admin_id", currentAdminId);
+            startActivity(intent);
+        });
+
+        // Add click listener for the new group management button
+        btnManageGroups.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminDashboardActivity.this, GroupManagementActivity.class);
             startActivity(intent);
         });
 

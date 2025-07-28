@@ -15,11 +15,13 @@ import java.util.HashMap;
 
 
 
+import com.example.stuadminlogin.models.GroupModel;
 import com.example.stuadminlogin.models.StudentModel;
 import com.example.stuadminlogin.models.Notice;
 import com.example.stuadminlogin.models.LeaveApplication;
 import com.example.stuadminlogin.models.Attendance;
 import com.example.stuadminlogin.models.Holiday;
+
 
 
 
@@ -728,6 +730,183 @@ public Map<Integer, String> getAttendanceForDate(String date) {
         }
 
         // Inside DatabaseHelper.java
+// Group related methods
+public long createGroup(String groupName) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("group_name", groupName);
+    long id = db.insert("student_groups", null, values);
+    db.close();
+    return id;
+}
 
+public List<GroupModel> getAllGroupsWithMembers() {
+    List<GroupModel> groups = new ArrayList<>();
+    SQLiteDatabase db = this.getReadableDatabase();
+    
+    // Get all groups
+    Cursor groupCursor = db.query("student_groups", 
+            new String[]{"group_id", "group_name"}, 
+            null, null, null, null, null);
+    
+    if (groupCursor.moveToFirst()) {
+        do {
+            GroupModel group = new GroupModel();
+            group.setGroupId(groupCursor.getInt(0));
+            group.setGroupName(groupCursor.getString(1));
+            
+            // Get members for this group
+            List<StudentModel> members = getGroupMembers(group.getGroupId());
+            group.setMembers(members);
+            
+            groups.add(group);
+        } while (groupCursor.moveToNext());
+    }
+    groupCursor.close();
+    db.close();
+    return groups;
+}
 
+public GroupModel getGroupWithMembers(int groupId) {
+    SQLiteDatabase db = this.getReadableDatabase();
+    GroupModel group = null;
+    
+    Cursor groupCursor = db.query("student_groups", 
+            new String[]{"group_id", "group_name"}, 
+            "group_id=?", new String[]{String.valueOf(groupId)}, 
+            null, null, null);
+    
+    if (groupCursor.moveToFirst()) {
+        group = new GroupModel();
+        group.setGroupId(groupCursor.getInt(0));
+        group.setGroupName(groupCursor.getString(1));
+        
+        // Get members for this group
+        List<StudentModel> members = getGroupMembers(groupId);
+        group.setMembers(members);
+    }
+    groupCursor.close();
+    db.close();
+    return group;
+}
+
+private List<StudentModel> getGroupMembers(int groupId) {
+    List<StudentModel> members = new ArrayList<>();
+    SQLiteDatabase db = this.getReadableDatabase();
+    
+    String query = "SELECT s.student_id, s.roll_no, s.registration_no, s.name, " +
+            "s.email, s.phone_no, s.fathername, s.mothername, s.dob, s.password, " +
+            "s.created_at FROM students s INNER JOIN group_members gm ON " +
+            "s.student_id = gm.student_id WHERE gm.group_id = ?";
+    
+    Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(groupId)});
+    
+    if (cursor.moveToFirst()) {
+        do {
+            StudentModel student = new StudentModel();
+            student.setStudentId(cursor.getInt(0));
+            student.setRollNo(cursor.getString(1));
+            student.setRegistrationNo(cursor.getString(2));
+            student.setName(cursor.getString(3));
+            student.setEmail(cursor.getString(4));
+            student.setPhoneNo(cursor.getString(5));
+            student.setFatherName(cursor.getString(6));
+            student.setMotherName(cursor.getString(7));
+            student.setDob(cursor.getString(8));
+            student.setPassword(cursor.getString(9));
+            student.setCreatedAt(cursor.getString(10));
+            
+            members.add(student);
+        } while (cursor.moveToNext());
+    }
+    cursor.close();
+    return members;
+}
+
+public int updateGroup(GroupModel group) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("group_name", group.getGroupName());
+    
+    int rowsAffected = db.update("student_groups", values, 
+            "group_id=?", new String[]{String.valueOf(group.getGroupId())});
+    db.close();
+    return rowsAffected;
+}
+
+public int deleteGroup(int groupId) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    
+    // First delete all members from this group
+    db.delete("group_members", "group_id=?", new String[]{String.valueOf(groupId)});
+    
+    // Then delete the group
+    int rowsAffected = db.delete("student_groups", "group_id=?", new String[]{String.valueOf(groupId)});
+    db.close();
+    return rowsAffected;
+}
+
+public long addStudentToGroup(int groupId, int studentId) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    ContentValues values = new ContentValues();
+    values.put("group_id", groupId);
+    values.put("student_id", studentId);
+    
+    // Check if student is already in the group
+    Cursor cursor = db.query("group_members", 
+            new String[]{"id"}, 
+            "group_id=? AND student_id=?", 
+            new String[]{String.valueOf(groupId), String.valueOf(studentId)}, 
+            null, null, null);
+    
+    if (cursor.getCount() > 0) {
+        cursor.close();
+        db.close();
+        return -1; // Already exists
+    }
+    cursor.close();
+    
+    long id = db.insert("group_members", null, values);
+    db.close();
+    return id;
+}
+
+public int removeStudentFromGroup(int groupId, int studentId) {
+    SQLiteDatabase db = this.getWritableDatabase();
+    int rowsAffected = db.delete("group_members", 
+            "group_id=? AND student_id=?", 
+            new String[]{String.valueOf(groupId), String.valueOf(studentId)});
+    db.close();
+    return rowsAffected;
+}
+
+public List<StudentModel> getAllStudents() {
+    List<StudentModel> students = new ArrayList<>();
+    SQLiteDatabase db = this.getReadableDatabase();
+    Cursor cursor = db.query("students", null, null, null, null, null, "name ASC");
+
+    if (cursor.moveToFirst()) {
+        do {
+            StudentModel student = new StudentModel();
+            student.setStudentId(cursor.getInt(0));
+            student.setRollNo(cursor.getString(1));
+            student.setRegistrationNo(cursor.getString(2));
+            student.setName(cursor.getString(3));
+            student.setEmail(cursor.getString(4));
+            student.setPhoneNo(cursor.getString(5));
+            student.setFatherName(cursor.getString(6));
+            student.setMotherName(cursor.getString(7));
+            student.setDob(cursor.getString(8));
+            student.setPassword(cursor.getString(9));
+            student.setAddress(cursor.getString(10));
+            student.setAdmissionDate(cursor.getString(11));
+            student.setClassId(cursor.getInt(12));
+            student.setSectionId(cursor.getInt(13));
+            students.add(student);
+        } while (cursor.moveToNext());
+    }
+    cursor.close();
+    db.close();
+    return students;
+}
 }
