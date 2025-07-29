@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
-
-    <!-- Top Row with Search and Add -->
-    <LinearLayout
+    android:padding="16dp"
+    android:paddingTop="?attr/actionBarSize"> <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,23 +26,21 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <!-- Class List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewClasses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"/>
 
-        <TextView
-    android:id="@+id/textNoClasses"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="No classes found."
-    android:textColor="@android:color/black"
-    android:textSize="16sp"
-    android:gravity="center"
-    android:visibility="gone"
-    android:layout_marginTop="20dp"/>
-
+    <TextView
+        android:id="@+id/textNoClasses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No classes found."
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +10,7 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="72dp">
-
-        <!-- Notice Title -->
-        <TextView
+        android:paddingTop="?attr/actionBarSize"> <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Notice Title"
@@ -30,7 +28,6 @@
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +48,6 @@
             android:inputType="textMultiLine"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Recipient Selection -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +66,6 @@
             android:padding="8dp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Class Names -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +85,6 @@
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Class-Section Pairs -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,7 +103,6 @@
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Student IDs -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +121,6 @@
             android:textSize="16sp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Group IDs -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,13 +139,13 @@
             android:textSize="16sp"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Send Button -->
         <Button
             android:id="@+id/sendNoticeBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Send Notice"
             android:textSize="18sp"
+            android:radius="24dp"
             android:textColor="#fff"
             android:background="#2196F3"
             android:layout_marginTop="8dp"/>
