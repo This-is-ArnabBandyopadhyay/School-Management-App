@@ -39,7 +39,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Enter your username"
+            android:hint="Enter your username / roll no."
             android:background="@drawable/edittext_bg"
             android:padding="12dp"
             android:textSize="16sp"
@@ -78,26 +78,28 @@
             android:id="@+id/roleGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:orientation="vertical" 
+            android:layout_marginBottom="24dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
             <RadioButton
                 android:id="@+id/radio_admin"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Admin"
                 android:textSize="16sp"
-                android:buttonTint="@android:color/black"/>
+                android:buttonTint="@color/black"
+                android:layout_marginBottom="8dp"/> <!-- Added margin below for spacing -->
 
             <RadioButton
                 android:id="@+id/radio_student"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Student"
+                android:text="Student / Parent"
                 android:textSize="16sp"
-                android:buttonTint="@android:color/black"/>
+                android:buttonTint="@color/black"/>
+
         </RadioGroup>
 
         <!-- Login Button -->
