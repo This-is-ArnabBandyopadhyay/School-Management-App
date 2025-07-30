@@ -39,6 +39,16 @@
         <activity android:name=".activities.AdminDashboardActivity" android:exported="true" />
         <activity android:name=".activities.StudentDashboardActivity" android:exported="true" />
 
+        <activity android:name=".activities.ParentDashboardActivity" />
+         <activity android:name=".activities.ViewStudentsForParentActivity" />
+          <activity android:name=".activities.ParentViewNoticesActivity" />
+           <activity android:name=".activities.AdminViewParentQueriesActivity" />
+
+            <activity android:name=".activities.ParentViewQueriesActivity" />
+        <activity android:name=".activities.ViewQueryDetailsActivity" />
+         <activity android:name=".activities.ParentProfileActivity" />
+
+
         <activity android:name=".activities.NoticeActivity" android:exported="true" />
         <activity android:name=".activities.ViewNoticesActivity" android:exported="true" />
 

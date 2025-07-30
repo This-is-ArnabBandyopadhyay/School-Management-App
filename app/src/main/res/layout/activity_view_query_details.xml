@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f8f9fa"
+    tools:context=".activities.ViewQueryDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Query Details">
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Query:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/queryTextDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Query Text]"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rounded_background_light_gray"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sender Info:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/senderInfoDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Parent Name (About: Student Name - Class)]"
+                android:textSize="14sp"
+                android:textColor="#555"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/queryStatusDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Status]"
+                android:textSize="14sp"
+                android:textColor="#555"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/responseLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin Response:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/responseTextDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Response Text]"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:background="@drawable/rounded_background_light_gray"
+                android:padding="8dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/respondedByLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Responded By:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/respondedByDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Admin Name]"
+                android:textSize="14sp"
+                android:textColor="#555"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/responseTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Response Time:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/responseTimeDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Response Time]"
+                android:textSize="14sp"
+                android:textColor="#555"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

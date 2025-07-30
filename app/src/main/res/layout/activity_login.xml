@@ -39,7 +39,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Enter your username / roll no."
+            android:hint="Enter username / roll no. / email"
             android:background="@drawable/edittext_bg"
             android:padding="12dp"
             android:textSize="16sp"
@@ -96,7 +96,16 @@
                 android:id="@+id/radio_student"
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
-                android:text="Student / Parent"
+                android:text="Student"
+                android:textSize="16sp"
+                android:buttonTint="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+                <RadioButton
+                android:id="@+id/radio_parent"
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content"
+                android:text="Parent"
                 android:textSize="16sp"
                 android:buttonTint="@color/black"/>
 

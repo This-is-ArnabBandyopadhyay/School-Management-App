@@ -217,6 +217,287 @@
 
 
 
+// package com.example.stuadminlogin.activities;
+
+// import android.os.Bundle;
+// import android.view.View;
+// import android.widget.*;
+// import androidx.appcompat.app.AppCompatActivity;
+// import androidx.appcompat.widget.Toolbar; // Import Toolbar
+// import com.example.stuadminlogin.database.DatabaseHelper;
+// import com.example.stuadminlogin.R;
+// import android.content.ContentValues;
+// import android.database.sqlite.SQLiteDatabase;
+// import android.database.Cursor;
+// import java.text.SimpleDateFormat;
+// import java.util.*;
+
+// public class NoticeActivity extends AppCompatActivity {
+
+//     EditText titleEdit, descEdit, individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit;
+//     CheckBox sendToAllCheck;
+//     Button sendNoticeBtn;
+//     DatabaseHelper dbHelper;
+//     int adminId;
+
+//     @Override
+//     protected void onCreate(Bundle savedInstanceState) {
+//         super.onCreate(savedInstanceState);
+//         setContentView(R.layout.activity_notice);
+
+//         // --- Toolbar Setup ---
+//         Toolbar toolbar = findViewById(R.id.toolbar); // Find the Toolbar by its ID
+//         setSupportActionBar(toolbar); // Set it as the Activity's support action bar
+
+//         // Customize Toolbar title and back button
+//         if (getSupportActionBar() != null) {
+//             getSupportActionBar().setTitle("Send Notice"); // Set your desired title
+//             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Show back button
+//             getSupportActionBar().setDisplayShowHomeEnabled(true); // Ensure back button is clickable
+//         }
+//         // --- End Toolbar Setup ---
+
+//         titleEdit = findViewById(R.id.noticeTitle);
+//         descEdit = findViewById(R.id.noticeDesc);
+//         individualIdsEdit = findViewById(R.id.studentIds);
+//         groupNamesEdit = findViewById(R.id.groupIds);
+//         classNamesEdit = findViewById(R.id.classNames);
+//         classSectionPairsEdit = findViewById(R.id.classSectionPairs);
+//         sendToAllCheck = findViewById(R.id.sendToAllCheck);
+//         sendNoticeBtn = findViewById(R.id.sendNoticeBtn);
+//         dbHelper = new DatabaseHelper(this);
+
+//         adminId = getIntent().getIntExtra("admin_id", -1);
+//         if (adminId == -1) {
+//             Toast.makeText(this, "Admin ID not found. Please login again.", Toast.LENGTH_LONG).show();
+//             finish();
+//             return;
+//         }
+
+//         // Disable/Enable fields based on SendToAll checkbox
+//         EditText[] allInputs = new EditText[]{
+//                 individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit
+//         };
+
+//         sendToAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//             for (EditText field : allInputs) {
+//                 field.setEnabled(!isChecked);
+//                 // Optionally clear text when disabling if you want a clean slate
+//                 if (isChecked) {
+//                     field.setText("");
+//                 }
+//             }
+//         });
+
+//         sendNoticeBtn.setOnClickListener(v -> {
+//             String title = titleEdit.getText().toString().trim();
+//             String desc = descEdit.getText().toString().trim();
+//             String createdAt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+//             if (title.isEmpty() || desc.isEmpty()) {
+//                 Toast.makeText(this, "Title and description are required", Toast.LENGTH_SHORT).show();
+//                 return;
+//             }
+
+//             SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+//             // Check if "Send to All" is checked and if so, other fields must be empty.
+//             // Or if "Send to All" is NOT checked, at least one of the other recipient fields must have input.
+//             boolean isSendToAll = sendToAllCheck.isChecked();
+//             boolean hasSpecificRecipients = !individualIdsEdit.getText().toString().trim().isEmpty() ||
+//                                             !groupNamesEdit.getText().toString().trim().isEmpty() ||
+//                                             !classNamesEdit.getText().toString().trim().isEmpty() ||
+//                                             !classSectionPairsEdit.getText().toString().trim().isEmpty();
+
+//             if (!isSendToAll && !hasSpecificRecipients) {
+//                 Toast.makeText(this, "Please select 'Send to All' or specify at least one recipient type.", Toast.LENGTH_LONG).show();
+//                 return;
+//             }
+
+
+//             // Individuals by roll_no
+//             List<Integer> validStudentIds = new ArrayList<>();
+//             String[] individualRolls = individualIdsEdit.getText().toString().split(",");
+//             if (!isSendToAll) { // Only process if not sending to all
+//                 for (String roll : individualRolls) {
+//                     roll = roll.trim();
+//                     if (!roll.isEmpty()) {
+//                         Cursor cursor = db.rawQuery("SELECT student_id FROM students WHERE roll_no = ?",
+//                                 new String[]{roll});
+//                         if (cursor.moveToFirst()) {
+//                             validStudentIds.add(cursor.getInt(0));
+//                         } else {
+//                             Toast.makeText(this, "Roll number not found: " + roll, Toast.LENGTH_SHORT).show();
+//                             cursor.close();
+//                             return; // Stop processing and let user correct
+//                         }
+//                         cursor.close();
+//                     }
+//                 }
+//             }
+
+
+//             // Class name input
+//             List<Integer> validClassIds = new ArrayList<>();
+//             String[] classNamesInput = classNamesEdit.getText().toString().split(",");
+//             if (!isSendToAll) { // Only process if not sending to all
+//                 for (String className : classNamesInput) {
+//                     className = className.trim();
+//                     if (!className.isEmpty()) {
+//                         // Ensure "Class " prefix for consistency with DB schema
+//                         if (!className.startsWith("Class ")) {
+//                             className = "Class " + className;
+//                         }
+//                         Cursor cursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{className});
+//                         if (cursor.moveToFirst()) {
+//                             validClassIds.add(cursor.getInt(0));
+//                         } else {
+//                             Toast.makeText(this, "Class not found: " + className, Toast.LENGTH_SHORT).show();
+//                             cursor.close();
+//                             return; // Stop processing and let user correct
+//                         }
+//                         cursor.close();
+//                     }
+//                 }
+//             }
+
+
+//             // Section input (Class-Section Pairs)
+//             List<Integer> validSectionIds = new ArrayList<>();
+//             String[] classSectionPairs = classSectionPairsEdit.getText().toString().split(",");
+//             if (!isSendToAll) { // Only process if not sending to all
+//                 for (String input : classSectionPairs) {
+//                     input = input.trim();
+//                     if (!input.isEmpty()) {
+//                         String[] parts = input.split("-");
+//                         if (parts.length != 2) {
+//                             Toast.makeText(this, "Invalid class-section format: " + input + ". Use Class-Section (e.g., 10-A)", Toast.LENGTH_SHORT).show();
+//                             return; // Stop processing and let user correct
+//                         }
+
+//                         String classPart = parts[0].trim();
+//                         if (!classPart.startsWith("Class ")) {
+//                             classPart = "Class " + classPart;
+//                         }
+//                         String sectionPart = parts[1].trim();
+
+//                         Cursor classCursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{classPart});
+//                         if (!classCursor.moveToFirst()) {
+//                             Toast.makeText(this, "Class not found for pair: " + classPart, Toast.LENGTH_SHORT).show();
+//                             classCursor.close();
+//                             return; // Stop processing
+//                         }
+//                         int classIdForSection = classCursor.getInt(0);
+//                         classCursor.close();
+
+//                         Cursor sectionCursor = db.rawQuery(
+//                                 "SELECT section_id FROM sections WHERE section_name = ? AND class_id = ?",
+//                                 new String[]{sectionPart, String.valueOf(classIdForSection)});
+//                         if (sectionCursor.moveToFirst()) {
+//                             validSectionIds.add(sectionCursor.getInt(0));
+//                         } else {
+//                             Toast.makeText(this, "Section not found for " + input, Toast.LENGTH_SHORT).show();
+//                             sectionCursor.close();
+//                             return; // Stop processing
+//                         }
+//                         sectionCursor.close();
+//                     }
+//                 }
+//             }
+
+
+//             // Groups by name
+//             List<Integer> validGroupIds = new ArrayList<>();
+//             String[] groupNamesInput = groupNamesEdit.getText().toString().split(",");
+//             if (!isSendToAll) { // Only process if not sending to all
+//                 for (String groupName : groupNamesInput) {
+//                     groupName = groupName.trim();
+//                     if (!groupName.isEmpty()) {
+//                         Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_name = ?",
+//                                 new String[]{groupName});
+//                         if (cursor.moveToFirst()) {
+//                             validGroupIds.add(cursor.getInt(0));
+//                         } else {
+//                             Toast.makeText(this, "Group not found: " + groupName, Toast.LENGTH_SHORT).show();
+//                             cursor.close();
+//                             return; // Stop processing
+//                         }
+//                         cursor.close();
+//                     }
+//                 }
+//             }
+
+//             // Insert into notices table
+//             ContentValues notice = new ContentValues();
+//             notice.put("admin_id", adminId);
+//             notice.put("title", title);
+//             notice.put("description", desc);
+//             notice.put("created_at", createdAt);
+//             long noticeId = db.insert("notices", null, notice);
+
+//             if (noticeId == -1) {
+//                 Toast.makeText(this, "Failed to create notice", Toast.LENGTH_SHORT).show();
+//                 return;
+//             }
+
+//             if (isSendToAll) {
+//                 ContentValues all = new ContentValues();
+//                 all.put("notice_id", noticeId);
+//                 db.insert("notice_to_all", null, all);
+//             } else {
+//                 // Insert into specific recipient tables only if not sending to all
+//                 for (int cid : validClassIds) {
+//                     ContentValues row = new ContentValues();
+//                     row.put("notice_id", noticeId);
+//                     row.put("class_id", cid);
+//                     db.insert("notice_to_classes", null, row);
+//                 }
+
+//                 for (int sid : validSectionIds) {
+//                     ContentValues row = new ContentValues();
+//                     row.put("notice_id", noticeId);
+//                     row.put("section_id", sid);
+//                     db.insert("notice_to_sections", null, row);
+//                 }
+
+//                 for (int sid : validStudentIds) {
+//                     ContentValues row = new ContentValues();
+//                     row.put("notice_id", noticeId);
+//                     row.put("student_id", sid);
+//                     db.insert("notice_to_individuals", null, row);
+//                 }
+
+//                 for (int gid : validGroupIds) {
+//                     ContentValues row = new ContentValues();
+//                     row.put("notice_id", noticeId);
+//                     row.put("group_id", gid);
+//                     db.insert("notice_to_groups", null, row);
+//                 }
+//             }
+
+//             Toast.makeText(this, "Notice sent successfully", Toast.LENGTH_SHORT).show();
+//             // Clear fields after successful send
+//             titleEdit.setText("");
+//             descEdit.setText("");
+//             individualIdsEdit.setText("");
+//             groupNamesEdit.setText("");
+//             classNamesEdit.setText("");
+//             classSectionPairsEdit.setText("");
+//             sendToAllCheck.setChecked(false); // Reset checkbox
+//             finish(); // Finish the activity
+//         });
+//     }
+
+//     // Handle back button press on the Toolbar
+//     @Override
+//     public boolean onSupportNavigateUp() {
+//         onBackPressed(); // This will navigate back to the previous activity
+//         return true;
+//     }
+// }
+
+
+
 package com.example.stuadminlogin.activities;
 
 import android.os.Bundle;
@@ -235,6 +516,8 @@ import java.util.*;
 public class NoticeActivity extends AppCompatActivity {
 
     EditText titleEdit, descEdit, individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit;
+    // NEW: EditText for parent IDs
+    EditText parentIdsEdit;
     CheckBox sendToAllCheck;
     Button sendNoticeBtn;
     DatabaseHelper dbHelper;
@@ -263,6 +546,8 @@ public class NoticeActivity extends AppCompatActivity {
         groupNamesEdit = findViewById(R.id.groupIds);
         classNamesEdit = findViewById(R.id.classNames);
         classSectionPairsEdit = findViewById(R.id.classSectionPairs);
+        // NEW: Initialize parentIdsEdit
+        parentIdsEdit = findViewById(R.id.parentIdsEdit);
         sendToAllCheck = findViewById(R.id.sendToAllCheck);
         sendNoticeBtn = findViewById(R.id.sendNoticeBtn);
         dbHelper = new DatabaseHelper(this);
@@ -275,8 +560,9 @@ public class NoticeActivity extends AppCompatActivity {
         }
 
         // Disable/Enable fields based on SendToAll checkbox
+        // UPDATED: Include parentIdsEdit in the array
         EditText[] allInputs = new EditText[]{
-                individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit
+                individualIdsEdit, parentIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit
         };
 
         sendToAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -301,10 +587,10 @@ public class NoticeActivity extends AppCompatActivity {
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-            // Check if "Send to All" is checked and if so, other fields must be empty.
-            // Or if "Send to All" is NOT checked, at least one of the other recipient fields must have input.
             boolean isSendToAll = sendToAllCheck.isChecked();
+            // UPDATED: Include parentIdsEdit in hasSpecificRecipients check
             boolean hasSpecificRecipients = !individualIdsEdit.getText().toString().trim().isEmpty() ||
+                                            !parentIdsEdit.getText().toString().trim().isEmpty() || // NEW Check
                                             !groupNamesEdit.getText().toString().trim().isEmpty() ||
                                             !classNamesEdit.getText().toString().trim().isEmpty() ||
                                             !classSectionPairsEdit.getText().toString().trim().isEmpty();
@@ -335,6 +621,34 @@ public class NoticeActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            // NEW: Parent IDs processing
+            List<Integer> validParentIds = new ArrayList<>();
+            String[] parentIdsInput = parentIdsEdit.getText().toString().split(",");
+            if (!isSendToAll) { // Only process if not sending to all
+                for (String pIdStr : parentIdsInput) {
+                    pIdStr = pIdStr.trim();
+                    if (!pIdStr.isEmpty()) {
+                        try {
+                            int parentId = Integer.parseInt(pIdStr);
+                            Cursor cursor = db.rawQuery("SELECT parent_id FROM parents WHERE parent_id = ?",
+                                    new String[]{String.valueOf(parentId)});
+                            if (cursor.moveToFirst()) {
+                                validParentIds.add(cursor.getInt(0));
+                            } else {
+                                Toast.makeText(this, "Parent ID not found: " + parentId, Toast.LENGTH_SHORT).show();
+                                cursor.close();
+                                return; // Stop processing and let user correct
+                            }
+                            cursor.close();
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(this, "Invalid Parent ID format: " + pIdStr, Toast.LENGTH_SHORT).show();
+                            return; // Stop processing
+                        }
+                    }
+                }
+            }
+            // END NEW
 
 
             // Class name input
@@ -443,23 +757,12 @@ public class NoticeActivity extends AppCompatActivity {
             if (isSendToAll) {
                 ContentValues all = new ContentValues();
                 all.put("notice_id", noticeId);
+                // Assuming 'notice_to_all' table exists for broad notices
                 db.insert("notice_to_all", null, all);
             } else {
                 // Insert into specific recipient tables only if not sending to all
-                for (int cid : validClassIds) {
-                    ContentValues row = new ContentValues();
-                    row.put("notice_id", noticeId);
-                    row.put("class_id", cid);
-                    db.insert("notice_to_classes", null, row);
-                }
 
-                for (int sid : validSectionIds) {
-                    ContentValues row = new ContentValues();
-                    row.put("notice_id", noticeId);
-                    row.put("section_id", sid);
-                    db.insert("notice_to_sections", null, row);
-                }
-
+                // Students by Individual Roll No
                 for (int sid : validStudentIds) {
                     ContentValues row = new ContentValues();
                     row.put("notice_id", noticeId);
@@ -467,10 +770,41 @@ public class NoticeActivity extends AppCompatActivity {
                     db.insert("notice_to_individuals", null, row);
                 }
 
+                // NEW: Insert into notice_to_parents
+                for (int pId : validParentIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("parent_id", pId);
+                    db.insert("notice_to_parents", null, row);
+                }
+                // END NEW
+
+                // Notices to Classes
+                for (int cid : validClassIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("class_id", cid);
+                    db.insert("notice_to_classes", null, row);
+                }
+
+                // Notices to Sections (assuming notice_to_sections table exists)
+                for (int sid : validSectionIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("section_id", sid);
+                    // You need to ensure 'notice_to_sections' table exists in your DB schema
+                    // If not, it will throw an error.
+                    // For now, assuming it might be covered by notice_to_classes if sections aren't separate notice targets.
+                    // If you don't have notice_to_sections, remove or adapt this block.
+                    db.insert("notice_to_sections", null, row);
+                }
+
+                // Notices to Groups
                 for (int gid : validGroupIds) {
                     ContentValues row = new ContentValues();
                     row.put("notice_id", noticeId);
                     row.put("group_id", gid);
+                    // You need to ensure 'notice_to_groups' table exists in your DB schema
                     db.insert("notice_to_groups", null, row);
                 }
             }
@@ -480,11 +814,12 @@ public class NoticeActivity extends AppCompatActivity {
             titleEdit.setText("");
             descEdit.setText("");
             individualIdsEdit.setText("");
+            parentIdsEdit.setText(""); // NEW: Clear parent IDs field
             groupNamesEdit.setText("");
             classNamesEdit.setText("");
             classSectionPairsEdit.setText("");
             sendToAllCheck.setChecked(false); // Reset checkbox
-            finish(); // Finish the activity
+            // finish(); // You might want to remove this if admin sends multiple notices
         });
     }
 

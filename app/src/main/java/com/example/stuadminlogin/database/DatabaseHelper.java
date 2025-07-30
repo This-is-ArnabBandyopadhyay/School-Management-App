@@ -132,6 +132,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                 +
                                 "VALUES ('006', 'REG128', 'Nisha Patel', 'nisha@example.com', '9123456704', 'Mr. Patel', 'Mrs. Patel', '2009-11-18', 'student103', datetime('now'), 'Address 6', '2020-01-01', 2, 1, 'uri6', datetime('now'))");
 
+                                // 🔵 Parents Table
+       // 🔵 Parents Table
+db.execSQL("CREATE TABLE parents (" +
+        "parent_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "email TEXT UNIQUE NOT NULL, " +
+        "password TEXT NOT NULL, " +
+        "name TEXT, " +
+        "phone_no TEXT, " +
+        "created_at TEXT, " +
+        "last_login TEXT, " + // <--- Make sure there's a comma here
+        "profile_photo_uri TEXT)"); // <--- No extra parenthesis here
+
+        // Dummy parents (passwords should be hashed in a real application)
+        // Dummy parents (passwords should be hashed in a real application)
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent1@example.com', 'parent123', 'Alice Johnson', '9988776655', datetime('now'), datetime('now'), NULL)");
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent2@example.com', 'parent456', 'Bob Williams', '9988776644', datetime('now'), datetime('now'), NULL)");
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent3@example.com', 'parent789', 'Catherine Davis', '9988776633', datetime('now'), datetime('now'), NULL)");
+
+
+        // 🔵 Parent-Student Linking Table
+        db.execSQL("CREATE TABLE parent_student_link (" +
+                "link_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "parent_id INTEGER NOT NULL, " +
+                "student_id INTEGER NOT NULL, " +
+                "FOREIGN KEY(parent_id) REFERENCES parents(parent_id) ON DELETE CASCADE, " +
+                "FOREIGN KEY(student_id) REFERENCES students(student_id) ON DELETE CASCADE, " +
+                "UNIQUE(parent_id, student_id))"); // Ensure a parent is linked to a student only once
+
+        // Dummy parent-student links
+        // Alice Johnson (parent_id 1) is parent of John Doe (student_id 1) and Jane Smith (student_id 2)
+        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 1)");
+        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 2)");
+
+        // Bob Williams (parent_id 2) is parent of Amit Roy (student_id 3)
+        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (2, 3)");
+
+        // Catherine Davis (parent_id 3) is parent of Sara Khan (student_id 4) and Rahul Sharma (student_id 5)
+        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 4)");
+        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 5)");
+
                 // 🟢 Notices Table
                 db.execSQL("CREATE TABLE notices (" +
                                 "notice_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -164,6 +204,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                 "FOREIGN KEY(class_id) REFERENCES classes(class_id))");
 
                 db.execSQL("INSERT INTO notice_to_classes (notice_id, class_id) VALUES (1, 2),(2, 1)");
+
+                // ** 🟢 Notice to Parents **
+db.execSQL("CREATE TABLE notice_to_parents (" +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "notice_id INTEGER NOT NULL, " +
+        "parent_id INTEGER NOT NULL, " +
+        "FOREIGN KEY(notice_id) REFERENCES notices(notice_id), " +
+        "FOREIGN KEY(parent_id) REFERENCES parents(parent_id))");
+
+// Dummy data for notice_to_parents
+// Assuming notice_id 1 is 'Holiday Announcement'
+// Assuming parent_id 1 is 'Alice Johnson'
+// Assuming parent_id 2 is 'Bob Williams'
+db.execSQL("INSERT INTO notice_to_parents (notice_id, parent_id) VALUES (1, 1)");
+db.execSQL("INSERT INTO notice_to_parents (notice_id, parent_id) VALUES (2, 2)");
+db.execSQL("INSERT INTO notice_to_parents (notice_id, parent_id) VALUES (1, 3)"); // Example: send holiday notice to parent 3 as well
 
                 // 🟢 Notice to Sections
                 db.execSQL("CREATE TABLE notice_to_sections (" +
@@ -211,19 +267,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.execSQL("INSERT INTO notice_to_all (notice_id) VALUES (2)");
 
                 // 🟢 Queries Table (Students raise queries)
-                db.execSQL("CREATE TABLE queries (" +
-                                "query_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                "student_id INTEGER NOT NULL, " +
-                                "query_text TEXT NOT NULL, " +
-                                "response_status TEXT NOT NULL, " +
-                                "generated_at TEXT NOT NULL, " +
-                                "FOREIGN KEY(student_id) REFERENCES students(student_id))");
+                // Inside DatabaseHelper.java, in the onCreate method:
 
-                // Dummy queries from students
-                db.execSQL("INSERT INTO queries (student_id, query_text, response_status, generated_at) VALUES " +
-                                "(1, 'When is the science exam?', 'Pending', datetime('now'))," +
-                                "(2, 'Can I change my section?', 'Pending', datetime('now'))," +
-                                "(3, 'How to join the science club?', 'Responded', datetime('now'))");
+// Inside DatabaseHelper.java, in the onCreate method:
+
+// 🟢 Queries Table (Students/Parents raise queries)
+db.execSQL("CREATE TABLE queries (" +
+                "query_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "student_id INTEGER, " + // This is for direct student queries
+                "parent_id INTEGER, " +  // This is for parent queries
+                "linked_student_id INTEGER, " + // NEW: To link parent query to a specific child
+                "query_text TEXT NOT NULL, " +
+                "response_status TEXT NOT NULL, " +
+                "generated_at TEXT NOT NULL, " +
+                "FOREIGN KEY(student_id) REFERENCES students(student_id), " +
+                "FOREIGN KEY(parent_id) REFERENCES parents(parent_id), " +
+                "FOREIGN KEY(linked_student_id) REFERENCES students(student_id))"); // NEW FK constraint
+
+// Update your dummy data inserts for queries to include linked_student_id:
+// For student queries: linked_student_id should be NULL
+// For parent queries: linked_student_id can be NULL (general query) or a student_id (query about a specific child)
+db.execSQL("INSERT INTO queries (student_id, parent_id, linked_student_id, query_text, response_status, generated_at) VALUES " +
+                "(1, NULL, NULL, 'When is the science exam?', 'Pending', datetime('now'))," +
+                "(2, NULL, NULL, 'Can I change my section?', 'Pending', datetime('now'))," +
+                "(NULL, 1, 1, 'Query about John Does progress report.', 'Pending', datetime('now'))," + // Parent 1 about Student 1
+                "(NULL, 1, 2, 'Query about Jane Smiths attendance.', 'Pending', datetime('now'))," + // Parent 1 about Student 2
+                "(NULL, 2, NULL, 'General query about school events.', 'Pending', datetime('now'))," + // Parent 2 general query
+                "(3, NULL, NULL, 'How to join the science club?', 'Responded', datetime('now'))");
 
                 // 🟢 Query Responses Table (Admins respond to queries)
                 db.execSQL("CREATE TABLE query_responses (" +
@@ -301,12 +371,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.execSQL("DROP TABLE IF EXISTS notice_to_groups");
                 db.execSQL("DROP TABLE IF EXISTS group_members");
                 db.execSQL("DROP TABLE IF EXISTS student_groups");
+                db.execSQL("DROP TABLE IF EXISTS notice_to_parents");
                 db.execSQL("DROP TABLE IF EXISTS notice_to_individuals");
                 db.execSQL("DROP TABLE IF EXISTS notices");
                 db.execSQL("DROP TABLE IF EXISTS sections");
                 db.execSQL("DROP TABLE IF EXISTS classes");
                 db.execSQL("DROP TABLE IF EXISTS admins");
                 db.execSQL("DROP TABLE IF EXISTS students");
+                db.execSQL("DROP TABLE IF EXISTS parent_student_link"); // New table to drop
+                db.execSQL("DROP TABLE IF EXISTS parents"); 
                 db.execSQL("DROP TABLE IF EXISTS notice_to_classes");
                 db.execSQL("DROP TABLE IF EXISTS notice_to_sections");
                 db.execSQL("DROP TABLE IF EXISTS leave_applications");
@@ -909,4 +982,5 @@ public List<StudentModel> getAllStudents() {
     db.close();
     return students;
 }
+
 }

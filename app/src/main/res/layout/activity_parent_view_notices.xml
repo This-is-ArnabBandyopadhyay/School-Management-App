@@ -6,29 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/light_gray_background"
-    tools:context=".activities.ViewNoticesActivity">
-
-    <androidx.appcompat.widget.Toolbar
+    tools:context=".activities.ParentViewNoticesActivity"> <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/black" android:elevation="4dp"
+        android:background="@android:color/black"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Your Notices" /> 
-        
-        <ScrollView
+        app:title="Notices for Parents" /> <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/noticeList"
-            android:layout_width="match_parent"
+            android:id="@+id/noticeListForParents" android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
             android:paddingBottom="4dp">
-            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

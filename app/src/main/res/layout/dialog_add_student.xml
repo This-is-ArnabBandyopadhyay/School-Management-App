@@ -129,15 +129,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_bg"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Submit"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@android:color/black"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:elevation="2dp"/>
+            
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

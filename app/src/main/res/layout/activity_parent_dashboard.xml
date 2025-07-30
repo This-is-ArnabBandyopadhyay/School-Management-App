@@ -14,18 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@android:color/black" android:padding="24dp"
+            android:background="@android:color/black"
+            android:padding="24dp"
             android:elevation="4dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Admin Dashboard"
+                android:text="Parent Dashboard"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:layout_marginBottom="8dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,10 +35,10 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/welcomeText"
+                    android:id="@+id/parentWelcomeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Administrator"
+                    android:text="Welcome back, Parent!"
                     android:textSize="16sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"/>
@@ -56,116 +57,43 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quick Actions"
+                android:text="My Children &amp; School Info"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="12dp"/>
 
             <Button
-                android:id="@+id/issueNoticeButton"
+                android:id="@+id/btnViewMyStudents"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Issue New Notice"
+                android:text="View My Children"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_agenda"
+                android:drawableLeft="@android:drawable/ic_menu_week"
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <Button
-                android:id="@+id/btn_view_all_queries"
+                android:id="@+id/parentViewNoticesButton"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="View All Queries (Student)"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:drawableLeft="@android:drawable/ic_menu_help"
-                android:drawablePadding="8dp"
-                android:layout_marginBottom="8dp"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
-
-            <Button
-                android:id="@+id/btn_view_parent_queries"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="View All Queries (Parent)"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:drawableLeft="@android:drawable/ic_menu_edit"
-                android:drawablePadding="8dp"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:color/white"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:elevation="2dp"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Management Tools"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="12dp"/>
-
-            <Button
-                android:id="@+id/btn_manage_leaves"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Manage Leave Applications"
+                android:text="View School Notices"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+                android:drawableLeft="@android:drawable/ic_menu_view"
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <Button
-                android:id="@+id/btn_manage_classes"
+                android:id="@+id/parentBtnViewHolidays"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Manage Classes &amp; Sections"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_sort_by_size"
-                android:drawablePadding="8dp"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
-
-            <Button
-                android:id="@+id/btn_manage_groups"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Manage Student Groups"
-                android:background="?attr/selectableItemBackground"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_agenda"
-                android:drawablePadding="8dp"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
-
-            <Button
-                android:id="@+id/btnManageHolidays"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Manage Holidays"
+                android:text="View Academic Holidays"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
@@ -188,43 +116,56 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Admin Settings"
+                android:text="Support &amp; Account"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:layout_marginBottom="12dp"/>
 
             <Button
-                android:id="@+id/btn_manage_admins"
+                android:id="@+id/parentBtnSubmitQuery"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Manage Admin Accounts"
+                android:text="Submit New Query"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_manage"
+                android:drawableLeft="@android:drawable/ic_menu_edit"
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <Button
-                android:id="@+id/btnViewHolidays"
+                android:id="@+id/parentBtnViewPendingQueries"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="View Upcoming Holidays"
+                android:text="View My Pending Queries"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"
-                android:drawableLeft="@android:drawable/ic_menu_today"
+                android:drawableLeft="@android:drawable/ic_menu_recent_history"
                 android:drawablePadding="8dp"
                 style="@style/Widget.AppCompat.Button.Borderless"/>
 
             <Button
-                android:id="@+id/btnViewProfile"
+                android:id="@+id/parentBtnViewRespondedQueries"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="My Profile"
+                android:text="View My Responded Queries"
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"
+                android:drawableLeft="@android:drawable/ic_menu_info_details"
+                android:drawablePadding="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+
+            <Button
+                android:id="@+id/parentBtnMyProfile"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="My Profile Details"
                 android:background="?attr/selectableItemBackground"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
@@ -234,7 +175,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnLogout"
+            android:id="@+id/parentBtnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"
