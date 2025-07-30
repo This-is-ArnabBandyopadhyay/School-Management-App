@@ -84,7 +84,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/colorPrimary"
+                    android:background="@android:color/black"
                     android:paddingBottom="24dp">
 
                     <!-- Profile Photo Container -->

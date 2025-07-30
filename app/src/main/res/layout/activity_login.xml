@@ -88,7 +88,7 @@
                 android:layout_weight="1"
                 android:text="Admin"
                 android:textSize="16sp"
-                android:buttonTint="#2196F3"/>
+                android:buttonTint="@android:color/black"/>
 
             <RadioButton
                 android:id="@+id/radio_student"
@@ -97,7 +97,7 @@
                 android:layout_weight="1"
                 android:text="Student"
                 android:textSize="16sp"
-                android:buttonTint="#2196F3"/>
+                android:buttonTint="@android:color/black"/>
         </RadioGroup>
 
         <!-- Login Button -->
@@ -108,17 +108,17 @@
             android:text="Login"
             android:textSize="18sp"
             android:textColor="#ffffff"
-            android:background="#2196F3"
+            android:background="@android:color/black"
             android:layout_marginBottom="16dp"/>
 
         <!-- View Database Button -->
-        <Button
+        <!-- <Button
             android:id="@+id/viewDataButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="View Database"
             android:textSize="16sp"
-            android:textColor="#2196F3"
-            android:background="@drawable/outline_button_bg"/>
+            android:textColor="@android:color/black"
+            android:background="@drawable/outline_button_bg"/> -->
     </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,229 @@
+// package com.example.stuadminlogin.activities;
+
+// import android.os.Bundle;
+// import android.view.View;
+// import android.widget.*;
+// import androidx.appcompat.app.AppCompatActivity;
+// import com.example.stuadminlogin.database.DatabaseHelper;
+// import com.example.stuadminlogin.R;
+// import android.content.ContentValues;
+// import android.database.sqlite.SQLiteDatabase;
+// import android.database.Cursor;
+// import java.text.SimpleDateFormat;
+// import java.util.*;
+
+// public class NoticeActivity extends AppCompatActivity {
+
+//     EditText titleEdit, descEdit, individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit;
+//     CheckBox sendToAllCheck;
+//     Button sendNoticeBtn;
+//     DatabaseHelper dbHelper;
+//     int adminId;
+
+//     @Override
+//     protected void onCreate(Bundle savedInstanceState) {
+//         super.onCreate(savedInstanceState);
+//         setContentView(R.layout.activity_notice);
+
+//         titleEdit = findViewById(R.id.noticeTitle);
+//         descEdit = findViewById(R.id.noticeDesc);
+//         individualIdsEdit = findViewById(R.id.studentIds);
+//         groupNamesEdit = findViewById(R.id.groupIds); // Renamed to reflect it's names now
+//         classNamesEdit = findViewById(R.id.classNames);
+//         classSectionPairsEdit = findViewById(R.id.classSectionPairs);
+//         sendToAllCheck = findViewById(R.id.sendToAllCheck);
+//         sendNoticeBtn = findViewById(R.id.sendNoticeBtn);
+//         dbHelper = new DatabaseHelper(this);
+
+//         adminId = getIntent().getIntExtra("admin_id", -1);
+//         if (adminId == -1) {
+//             Toast.makeText(this, "Admin ID not found. Please login again.", Toast.LENGTH_LONG).show();
+//             finish();
+//             return;
+//         }
+
+//         // Disable/Enable fields based on SendToAll checkbox
+//         EditText[] allInputs = new EditText[]{
+//                 individualIdsEdit, groupNamesEdit, classNamesEdit, classSectionPairsEdit
+//         };
+
+//         sendToAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//             for (EditText field : allInputs) {
+//                 field.setEnabled(!isChecked);
+//             }
+//         });
+
+//         sendNoticeBtn.setOnClickListener(v -> {
+//             String title = titleEdit.getText().toString().trim();
+//             String desc = descEdit.getText().toString().trim();
+//             String createdAt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+//             if (title.isEmpty() || desc.isEmpty()) {
+//                 Toast.makeText(this, "Title and description are required", Toast.LENGTH_SHORT).show();
+//                 return;
+//             }
+
+//             SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+//             // Individuals by roll_no
+//             List<Integer> validStudentIds = new ArrayList<>();
+//             for (String roll : individualIdsEdit.getText().toString().split(",")) {
+//                 roll = roll.trim();
+//                 if (!roll.isEmpty()) {
+//                     Cursor cursor = db.rawQuery("SELECT student_id FROM students WHERE roll_no = ?",
+//                             new String[]{roll});
+//                     if (cursor.moveToFirst()) {
+//                         validStudentIds.add(cursor.getInt(0));
+//                     } else {
+//                         Toast.makeText(this, "Roll number not found: " + roll, Toast.LENGTH_SHORT).show();
+//                         cursor.close();
+//                         return;
+//                     }
+//                     cursor.close();
+//                 }
+//             }
+
+//             // Class name input
+//             List<Integer> validClassIds = new ArrayList<>();
+//             for (String className : classNamesEdit.getText().toString().split(",")) {
+//                 className = className.trim();
+//                 if (!className.isEmpty()) {
+//                     if (!className.startsWith("Class ")) {
+//                         className = "Class " + className;
+//                     }
+//                     Cursor cursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{className});
+//                     if (cursor.moveToFirst()) {
+//                         validClassIds.add(cursor.getInt(0));
+//                     } else {
+//                         Toast.makeText(this, "Class not found: " + className, Toast.LENGTH_SHORT).show();
+//                         cursor.close();
+//                         return;
+//                     }
+//                     cursor.close();
+//                 }
+//             }
+
+//             // Section input
+//             List<Integer> validSectionIds = new ArrayList<>();
+//             for (String input : classSectionPairsEdit.getText().toString().split(",")) {
+//                 input = input.trim();
+//                 if (!input.isEmpty()) {
+//                     String[] parts = input.split("-");
+//                     if (parts.length != 2) {
+//                         Toast.makeText(this, "Invalid class-section format: " + input, Toast.LENGTH_SHORT).show();
+//                         return;
+//                     }
+
+//                     String classPart = parts[0].trim();
+//                     if (!classPart.startsWith("Class ")) {
+//                         classPart = "Class " + classPart;
+//                     }
+//                     String sectionPart = parts[1].trim();
+
+//                     Cursor classCursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{classPart});
+//                     if (!classCursor.moveToFirst()) {
+//                         Toast.makeText(this, "Class not found: " + classPart, Toast.LENGTH_SHORT).show();
+//                         classCursor.close();
+//                         return;
+//                     }
+
+//                     int classId = classCursor.getInt(0);
+//                     classCursor.close();
+
+//                     Cursor sectionCursor = db.rawQuery(
+//                             "SELECT section_id FROM sections WHERE section_name = ? AND class_id = ?",
+//                             new String[]{sectionPart, String.valueOf(classId)});
+//                     if (sectionCursor.moveToFirst()) {
+//                         validSectionIds.add(sectionCursor.getInt(0));
+//                     } else {
+//                         Toast.makeText(this, "Section not found for " + input, Toast.LENGTH_SHORT).show();
+//                         sectionCursor.close();
+//                         return;
+//                     }
+//                     sectionCursor.close();
+//                 }
+//             }
+
+//             // Groups by name
+//             List<Integer> validGroupIds = new ArrayList<>();
+//             for (String groupName : groupNamesEdit.getText().toString().split(",")) {
+//                 groupName = groupName.trim();
+//                 if (!groupName.isEmpty()) {
+//                     Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_name = ?",
+//                             new String[]{groupName});
+//                     if (cursor.moveToFirst()) {
+//                         validGroupIds.add(cursor.getInt(0));
+//                     } else {
+//                         Toast.makeText(this, "Group not found: " + groupName, Toast.LENGTH_SHORT).show();
+//                         cursor.close();
+//                         return;
+//                     }
+//                     cursor.close();
+//                 }
+//             }
+
+//             // Insert into notices table
+//             ContentValues notice = new ContentValues();
+//             notice.put("admin_id", adminId);
+//             notice.put("title", title);
+//             notice.put("description", desc);
+//             notice.put("created_at", createdAt);
+//             long noticeId = db.insert("notices", null, notice);
+
+//             if (noticeId == -1) {
+//                 Toast.makeText(this, "Failed to create notice", Toast.LENGTH_SHORT).show();
+//                 return;
+//             }
+
+//             if (sendToAllCheck.isChecked()) {
+//                 ContentValues all = new ContentValues();
+//                 all.put("notice_id", noticeId);
+//                 db.insert("notice_to_all", null, all);
+//             }
+
+//             for (int cid : validClassIds) {
+//                 ContentValues row = new ContentValues();
+//                 row.put("notice_id", noticeId);
+//                 row.put("class_id", cid);
+//                 db.insert("notice_to_classes", null, row);
+//             }
+
+//             for (int sid : validSectionIds) {
+//                 ContentValues row = new ContentValues();
+//                 row.put("notice_id", noticeId);
+//                 row.put("section_id", sid);
+//                 db.insert("notice_to_sections", null, row);
+//             }
+
+//             for (int sid : validStudentIds) {
+//                 ContentValues row = new ContentValues();
+//                 row.put("notice_id", noticeId);
+//                 row.put("student_id", sid);
+//                 db.insert("notice_to_individuals", null, row);
+//             }
+
+//             for (int gid : validGroupIds) {
+//                 ContentValues row = new ContentValues();
+//                 row.put("notice_id", noticeId);
+//                 row.put("group_id", gid);
+//                 db.insert("notice_to_groups", null, row);
+//             }
+
+//             Toast.makeText(this, "Notice sent successfully", Toast.LENGTH_SHORT).show();
+//             finish();
+//         });
+//     }
+// }
+
+
+
 package com.example.stuadminlogin.activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar; // Import Toolbar
 import com.example.stuadminlogin.database.DatabaseHelper;
 import com.example.stuadminlogin.R;
 import android.content.ContentValues;
@@ -25,10 +245,22 @@ public class NoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
 
+        // --- Toolbar Setup ---
+        Toolbar toolbar = findViewById(R.id.toolbar); // Find the Toolbar by its ID
+        setSupportActionBar(toolbar); // Set it as the Activity's support action bar
+
+        // Customize Toolbar title and back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Send Notice"); // Set your desired title
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Show back button
+            getSupportActionBar().setDisplayShowHomeEnabled(true); // Ensure back button is clickable
+        }
+        // --- End Toolbar Setup ---
+
         titleEdit = findViewById(R.id.noticeTitle);
         descEdit = findViewById(R.id.noticeDesc);
         individualIdsEdit = findViewById(R.id.studentIds);
-        groupNamesEdit = findViewById(R.id.groupIds); // Renamed to reflect it's names now
+        groupNamesEdit = findViewById(R.id.groupIds);
         classNamesEdit = findViewById(R.id.classNames);
         classSectionPairsEdit = findViewById(R.id.classSectionPairs);
         sendToAllCheck = findViewById(R.id.sendToAllCheck);
@@ -50,6 +282,10 @@ public class NoticeActivity extends AppCompatActivity {
         sendToAllCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
             for (EditText field : allInputs) {
                 field.setEnabled(!isChecked);
+                // Optionally clear text when disabling if you want a clean slate
+                if (isChecked) {
+                    field.setText("");
+                }
             }
         });
 
@@ -65,100 +301,129 @@ public class NoticeActivity extends AppCompatActivity {
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+            // Check if "Send to All" is checked and if so, other fields must be empty.
+            // Or if "Send to All" is NOT checked, at least one of the other recipient fields must have input.
+            boolean isSendToAll = sendToAllCheck.isChecked();
+            boolean hasSpecificRecipients = !individualIdsEdit.getText().toString().trim().isEmpty() ||
+                                            !groupNamesEdit.getText().toString().trim().isEmpty() ||
+                                            !classNamesEdit.getText().toString().trim().isEmpty() ||
+                                            !classSectionPairsEdit.getText().toString().trim().isEmpty();
+
+            if (!isSendToAll && !hasSpecificRecipients) {
+                Toast.makeText(this, "Please select 'Send to All' or specify at least one recipient type.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+
             // Individuals by roll_no
             List<Integer> validStudentIds = new ArrayList<>();
-            for (String roll : individualIdsEdit.getText().toString().split(",")) {
-                roll = roll.trim();
-                if (!roll.isEmpty()) {
-                    Cursor cursor = db.rawQuery("SELECT student_id FROM students WHERE roll_no = ?",
-                            new String[]{roll});
-                    if (cursor.moveToFirst()) {
-                        validStudentIds.add(cursor.getInt(0));
-                    } else {
-                        Toast.makeText(this, "Roll number not found: " + roll, Toast.LENGTH_SHORT).show();
+            String[] individualRolls = individualIdsEdit.getText().toString().split(",");
+            if (!isSendToAll) { // Only process if not sending to all
+                for (String roll : individualRolls) {
+                    roll = roll.trim();
+                    if (!roll.isEmpty()) {
+                        Cursor cursor = db.rawQuery("SELECT student_id FROM students WHERE roll_no = ?",
+                                new String[]{roll});
+                        if (cursor.moveToFirst()) {
+                            validStudentIds.add(cursor.getInt(0));
+                        } else {
+                            Toast.makeText(this, "Roll number not found: " + roll, Toast.LENGTH_SHORT).show();
+                            cursor.close();
+                            return; // Stop processing and let user correct
+                        }
                         cursor.close();
-                        return;
                     }
-                    cursor.close();
                 }
             }
+
 
             // Class name input
             List<Integer> validClassIds = new ArrayList<>();
-            for (String className : classNamesEdit.getText().toString().split(",")) {
-                className = className.trim();
-                if (!className.isEmpty()) {
-                    if (!className.startsWith("Class ")) {
-                        className = "Class " + className;
-                    }
-                    Cursor cursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{className});
-                    if (cursor.moveToFirst()) {
-                        validClassIds.add(cursor.getInt(0));
-                    } else {
-                        Toast.makeText(this, "Class not found: " + className, Toast.LENGTH_SHORT).show();
+            String[] classNamesInput = classNamesEdit.getText().toString().split(",");
+            if (!isSendToAll) { // Only process if not sending to all
+                for (String className : classNamesInput) {
+                    className = className.trim();
+                    if (!className.isEmpty()) {
+                        // Ensure "Class " prefix for consistency with DB schema
+                        if (!className.startsWith("Class ")) {
+                            className = "Class " + className;
+                        }
+                        Cursor cursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{className});
+                        if (cursor.moveToFirst()) {
+                            validClassIds.add(cursor.getInt(0));
+                        } else {
+                            Toast.makeText(this, "Class not found: " + className, Toast.LENGTH_SHORT).show();
+                            cursor.close();
+                            return; // Stop processing and let user correct
+                        }
                         cursor.close();
-                        return;
                     }
-                    cursor.close();
                 }
             }
 
-            // Section input
+
+            // Section input (Class-Section Pairs)
             List<Integer> validSectionIds = new ArrayList<>();
-            for (String input : classSectionPairsEdit.getText().toString().split(",")) {
-                input = input.trim();
-                if (!input.isEmpty()) {
-                    String[] parts = input.split("-");
-                    if (parts.length != 2) {
-                        Toast.makeText(this, "Invalid class-section format: " + input, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            String[] classSectionPairs = classSectionPairsEdit.getText().toString().split(",");
+            if (!isSendToAll) { // Only process if not sending to all
+                for (String input : classSectionPairs) {
+                    input = input.trim();
+                    if (!input.isEmpty()) {
+                        String[] parts = input.split("-");
+                        if (parts.length != 2) {
+                            Toast.makeText(this, "Invalid class-section format: " + input + ". Use Class-Section (e.g., 10-A)", Toast.LENGTH_SHORT).show();
+                            return; // Stop processing and let user correct
+                        }
 
-                    String classPart = parts[0].trim();
-                    if (!classPart.startsWith("Class ")) {
-                        classPart = "Class " + classPart;
-                    }
-                    String sectionPart = parts[1].trim();
+                        String classPart = parts[0].trim();
+                        if (!classPart.startsWith("Class ")) {
+                            classPart = "Class " + classPart;
+                        }
+                        String sectionPart = parts[1].trim();
 
-                    Cursor classCursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{classPart});
-                    if (!classCursor.moveToFirst()) {
-                        Toast.makeText(this, "Class not found: " + classPart, Toast.LENGTH_SHORT).show();
+                        Cursor classCursor = db.rawQuery("SELECT class_id FROM classes WHERE class_name = ?", new String[]{classPart});
+                        if (!classCursor.moveToFirst()) {
+                            Toast.makeText(this, "Class not found for pair: " + classPart, Toast.LENGTH_SHORT).show();
+                            classCursor.close();
+                            return; // Stop processing
+                        }
+                        int classIdForSection = classCursor.getInt(0);
                         classCursor.close();
-                        return;
-                    }
 
-                    int classId = classCursor.getInt(0);
-                    classCursor.close();
-
-                    Cursor sectionCursor = db.rawQuery(
-                            "SELECT section_id FROM sections WHERE section_name = ? AND class_id = ?",
-                            new String[]{sectionPart, String.valueOf(classId)});
-                    if (sectionCursor.moveToFirst()) {
-                        validSectionIds.add(sectionCursor.getInt(0));
-                    } else {
-                        Toast.makeText(this, "Section not found for " + input, Toast.LENGTH_SHORT).show();
+                        Cursor sectionCursor = db.rawQuery(
+                                "SELECT section_id FROM sections WHERE section_name = ? AND class_id = ?",
+                                new String[]{sectionPart, String.valueOf(classIdForSection)});
+                        if (sectionCursor.moveToFirst()) {
+                            validSectionIds.add(sectionCursor.getInt(0));
+                        } else {
+                            Toast.makeText(this, "Section not found for " + input, Toast.LENGTH_SHORT).show();
+                            sectionCursor.close();
+                            return; // Stop processing
+                        }
                         sectionCursor.close();
-                        return;
                     }
-                    sectionCursor.close();
                 }
             }
+
 
             // Groups by name
             List<Integer> validGroupIds = new ArrayList<>();
-            for (String groupName : groupNamesEdit.getText().toString().split(",")) {
-                groupName = groupName.trim();
-                if (!groupName.isEmpty()) {
-                    Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_name = ?",
-                            new String[]{groupName});
-                    if (cursor.moveToFirst()) {
-                        validGroupIds.add(cursor.getInt(0));
-                    } else {
-                        Toast.makeText(this, "Group not found: " + groupName, Toast.LENGTH_SHORT).show();
+            String[] groupNamesInput = groupNamesEdit.getText().toString().split(",");
+            if (!isSendToAll) { // Only process if not sending to all
+                for (String groupName : groupNamesInput) {
+                    groupName = groupName.trim();
+                    if (!groupName.isEmpty()) {
+                        Cursor cursor = db.rawQuery("SELECT group_id FROM student_groups WHERE group_name = ?",
+                                new String[]{groupName});
+                        if (cursor.moveToFirst()) {
+                            validGroupIds.add(cursor.getInt(0));
+                        } else {
+                            Toast.makeText(this, "Group not found: " + groupName, Toast.LENGTH_SHORT).show();
+                            cursor.close();
+                            return; // Stop processing
+                        }
                         cursor.close();
-                        return;
                     }
-                    cursor.close();
                 }
             }
 
@@ -175,42 +440,58 @@ public class NoticeActivity extends AppCompatActivity {
                 return;
             }
 
-            if (sendToAllCheck.isChecked()) {
+            if (isSendToAll) {
                 ContentValues all = new ContentValues();
                 all.put("notice_id", noticeId);
                 db.insert("notice_to_all", null, all);
-            }
+            } else {
+                // Insert into specific recipient tables only if not sending to all
+                for (int cid : validClassIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("class_id", cid);
+                    db.insert("notice_to_classes", null, row);
+                }
 
-            for (int cid : validClassIds) {
-                ContentValues row = new ContentValues();
-                row.put("notice_id", noticeId);
-                row.put("class_id", cid);
-                db.insert("notice_to_classes", null, row);
-            }
+                for (int sid : validSectionIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("section_id", sid);
+                    db.insert("notice_to_sections", null, row);
+                }
 
-            for (int sid : validSectionIds) {
-                ContentValues row = new ContentValues();
-                row.put("notice_id", noticeId);
-                row.put("section_id", sid);
-                db.insert("notice_to_sections", null, row);
-            }
+                for (int sid : validStudentIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("student_id", sid);
+                    db.insert("notice_to_individuals", null, row);
+                }
 
-            for (int sid : validStudentIds) {
-                ContentValues row = new ContentValues();
-                row.put("notice_id", noticeId);
-                row.put("student_id", sid);
-                db.insert("notice_to_individuals", null, row);
-            }
-
-            for (int gid : validGroupIds) {
-                ContentValues row = new ContentValues();
-                row.put("notice_id", noticeId);
-                row.put("group_id", gid);
-                db.insert("notice_to_groups", null, row);
+                for (int gid : validGroupIds) {
+                    ContentValues row = new ContentValues();
+                    row.put("notice_id", noticeId);
+                    row.put("group_id", gid);
+                    db.insert("notice_to_groups", null, row);
+                }
             }
 
             Toast.makeText(this, "Notice sent successfully", Toast.LENGTH_SHORT).show();
-            finish();
+            // Clear fields after successful send
+            titleEdit.setText("");
+            descEdit.setText("");
+            individualIdsEdit.setText("");
+            groupNamesEdit.setText("");
+            classNamesEdit.setText("");
+            classSectionPairsEdit.setText("");
+            sendToAllCheck.setChecked(false); // Reset checkbox
+            finish(); // Finish the activity
         });
+    }
+
+    // Handle back button press on the Toolbar
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // This will navigate back to the previous activity
+        return true;
     }
 }

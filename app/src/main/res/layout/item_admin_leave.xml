@@ -78,7 +78,7 @@
             android:layout_height="38dp"
             android:text="Approve"
             android:textColor="@android:color/white"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="@android:color/black"
             android:layout_marginEnd="8dp"
             android:minWidth="98dp"
             style="@style/Widget.AppCompat.Button.Colored"/>

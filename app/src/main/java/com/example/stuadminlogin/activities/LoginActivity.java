@@ -124,15 +124,15 @@ public class LoginActivity extends Activity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
-        viewDataButton = findViewById(R.id.viewDataButton);
+       // viewDataButton = findViewById(R.id.viewDataButton);
         roleGroup = findViewById(R.id.roleGroup);
         dbHelper = new DatabaseHelper(this);
         sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
 
-        // 🔍 View Database Debug
-        viewDataButton.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, DatabaseViewerActivity.class));
-        });
+        // // 🔍 View Database Debug
+        // viewDataButton.setOnClickListener(v -> {
+        //     startActivity(new Intent(LoginActivity.this, DatabaseViewerActivity.class));
+        // });
 
         // 🔐 Login Button Logic
         loginButton.setOnClickListener(v -> {

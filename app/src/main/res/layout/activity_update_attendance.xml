@@ -1,129 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@android:color/background_light"
+    tools:context=".activities.UpdateAttendanceActivity">
 
-    <!-- Header Section -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ATTENDANCE MARKING"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_blue_light"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black" android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Update Attendance"> </androidx.appcompat.widget.Toolbar>
 
-    <!-- Student Info Card -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/white"
-        android:elevation="4dp"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tvStudentName"
-            android:text="Student Name"
-            android:textSize="18sp"
-            android:textStyle="bold"
+        android:padding="16dp"> <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:padding="16dp">
 
-    <!-- Date Selection Card -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        android:elevation="4dp">
+            <TextView
+                android:id="@+id/tvStudentName"
+                android:text="Student Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/tvSelectedDate"
+                android:text="Selected Date: "
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btnPickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="CHOOSE DATE"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_dark"
+                android:minWidth="120dp"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvSelectedDate"
-            android:text="Selected Date: "
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:text="MARK ATTENDANCE"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:paddingLeft="8dp"/>
 
-        <Button
-            android:id="@+id/btnPickDate"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="CHOOSE DATE"
-            android:textAllCaps="true"
-            android:textSize="12sp"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_blue_dark"
-            android:minWidth="120dp"/>
-    </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:weightSum="3">
 
-    <!-- Attendance Options Section -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="MARK ATTENDANCE"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp"
-        android:paddingLeft="8dp"/>
+            <Button
+                android:id="@+id/btnPresent"
+                android:text="PRESENT"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:layout_height="48dp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_green_dark"
+                android:elevation="2dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:weightSum="3">
+            <Button
+                android:id="@+id/btnAbsent"
+                android:text="ABSENT"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:layout_height="48dp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_red_dark"
+                android:elevation="2dp"/>
 
-        <Button
-            android:id="@+id/btnPresent"
-            android:text="PRESENT"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="4dp"
-            android:layout_height="48dp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_green_dark"
-            android:elevation="2dp"/>
-
-        <Button
-            android:id="@+id/btnAbsent"
-            android:text="ABSENT"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="4dp"
-            android:layout_height="48dp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_red_dark"
-            android:elevation="2dp"/>
-
-        <Button
-            android:id="@+id/btnLeave"
-            android:text="LEAVE"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_height="48dp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_orange_dark"
-            android:elevation="2dp"/>
+            <Button
+                android:id="@+id/btnLeave"
+                android:text="LEAVE"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_height="48dp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_orange_dark"
+                android:elevation="2dp"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

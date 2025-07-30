@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="24dp"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- Other student details -->
-
-    <Button
-        android:id="@+id/btn_view_notices"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ViewStudentDetailsActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Notices" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black" android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Student Details"> </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp" android:orientation="vertical">
 
         <Button
-    android:id="@+id/btnViewRespondedQueries"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="View Responded Queries" />
+            android:id="@+id/btn_view_notices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Notices" />
 
-<Button
-    android:id="@+id/btnViewPendingQueries"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="View Pending Queries" />
+        <Button
+            android:id="@+id/btnViewRespondedQueries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Responded Queries"
+            android:layout_marginTop="8dp" /> <Button
+            android:id="@+id/btnViewPendingQueries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Pending Queries"
+            android:layout_marginTop="8dp" /> <Button
+            android:id="@+id/btn_update_attendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Attendance"
+            android:layout_marginTop="8dp" />
 
-   <Button
-    android:id="@+id/btn_update_attendance"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Update Attendance"
-    android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/btn_check_attendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check Attendance"
+            android:layout_marginTop="8dp" />
 
-<Button
-    android:id="@+id/btn_check_attendance"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Check Attendance"
-    android:layout_marginTop="8dp" />
-
-/>
-
-
+    </LinearLayout>
 </LinearLayout>

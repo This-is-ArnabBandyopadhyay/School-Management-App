@@ -1,75 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?android:attr/colorBackgroundFloating"
-    android:padding="16dp">
-
-    <!-- Header Card -->
-    <LinearLayout
+    tools:context=".activities.ViewAttendanceActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?android:attr/colorPrimary"
-        android:padding="16dp"
-        android:elevation="4dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black" android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Attendance Records"> </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Attendance Records"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            android:fontFamily="sans-serif-medium"/>
-    </LinearLayout>
-
-    <!-- Search Card -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="?android:attr/colorBackground"
-        android:elevation="2dp"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center_vertical">
-
-        <EditText
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search attendance..."
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            android:background="@android:color/transparent"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textColorHint="?android:attr/textColorHint"
-            android:textSize="16sp"/>
-
-        <ImageButton
-            android:id="@+id/btnFilter"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@android:drawable/ic_menu_sort_by_size"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Filter Records"
-            android:tint="?android:attr/colorAccent"/>
-    </LinearLayout>
-
-    <!-- Records List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAttendance"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:scrollbars="vertical"
-        android:background="?android:attr/colorBackground"
-        android:elevation="2dp"/>
+        android:orientation="vertical"
+        android:padding="16dp"> <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="?android:attr/colorBackground"
+            android:elevation="2dp"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical">
+            <EditText
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search attendance..."
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:background="@android:color/transparent"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textColorHint="?android:attr/textColorHint"
+                android:textSize="16sp"/>
+
+            <ImageButton
+                android:id="@+id/btnFilter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Filter Records"
+                android:tint="?android:attr/colorAccent"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:scrollbars="vertical"
+            android:background="?android:attr/colorBackground"
+            android:elevation="2dp"/>
+    </LinearLayout>
 </LinearLayout>

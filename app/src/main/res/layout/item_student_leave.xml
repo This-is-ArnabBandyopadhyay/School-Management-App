@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="Status"
         android:textSize="14sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@android:color/black"
         android:layout_marginBottom="4dp"/>
 
     <!-- Applied At (Smaller, subtle text) -->

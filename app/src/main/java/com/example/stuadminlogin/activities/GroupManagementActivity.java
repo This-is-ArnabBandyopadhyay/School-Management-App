@@ -1,3 +1,57 @@
+// package com.example.stuadminlogin.activities;
+
+// import android.content.Intent;
+// import android.os.Bundle;
+// import android.view.View;
+// import android.widget.Button;
+// import androidx.appcompat.app.AppCompatActivity;
+// import androidx.recyclerview.widget.LinearLayoutManager;
+// import androidx.recyclerview.widget.RecyclerView;
+// import com.example.stuadminlogin.R;
+// import com.example.stuadminlogin.adapters.GroupListAdapter;
+// import com.example.stuadminlogin.database.DatabaseHelper;
+// import com.example.stuadminlogin.models.GroupModel;
+// import java.util.List;
+
+// public class GroupManagementActivity extends AppCompatActivity {
+//     private RecyclerView recyclerView;
+//     private GroupListAdapter adapter;
+//     private DatabaseHelper db;
+
+//     @Override
+//     protected void onCreate(Bundle savedInstanceState) {
+//         super.onCreate(savedInstanceState);
+//         setContentView(R.layout.activity_group_management);
+
+//         db = new DatabaseHelper(this);
+        
+//         Button btnAddGroup = findViewById(R.id.btn_add_group);
+//         recyclerView = findViewById(R.id.rv_groups);
+//         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//         btnAddGroup.setOnClickListener(v -> {
+//             Intent intent = new Intent(GroupManagementActivity.this, AddEditGroupActivity.class);
+//             startActivity(intent);
+//         });
+
+//         loadGroups();
+//     }
+
+//     @Override
+//     protected void onResume() {
+//         super.onResume();
+//         loadGroups();
+//     }
+
+//     private void loadGroups() {
+//         List<GroupModel> groups = db.getAllGroupsWithMembers();
+//         adapter = new GroupListAdapter(this, groups, db);
+//         recyclerView.setAdapter(adapter);
+//     }
+// }
+
+
+
 package com.example.stuadminlogin.activities;
 
 import android.content.Intent;
@@ -5,6 +59,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar; // Import Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.stuadminlogin.R;
@@ -23,8 +78,20 @@ public class GroupManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_management);
 
+        // --- Toolbar Setup ---
+        Toolbar toolbar = findViewById(R.id.toolbar); // Find the Toolbar by its ID
+        setSupportActionBar(toolbar); // Set it as the Activity's support action bar
+
+        // Optional: Customize Toolbar title and back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Group Management"); // Set your desired title
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Show back button
+            getSupportActionBar().setDisplayShowHomeEnabled(true); // Ensure back button is clickable
+        }
+        // --- End Toolbar Setup ---
+
         db = new DatabaseHelper(this);
-        
+
         Button btnAddGroup = findViewById(R.id.btn_add_group);
         recyclerView = findViewById(R.id.rv_groups);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -40,7 +107,14 @@ public class GroupManagementActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadGroups();
+        loadGroups(); // Reload groups whenever the activity resumes (e.g., after returning from AddEditGroupActivity)
+    }
+
+    // Handle back button press on the Toolbar
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void loadGroups() {

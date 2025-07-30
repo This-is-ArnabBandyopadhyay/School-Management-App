@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical" 
     android:background="#F5F5F5"
-    android:fillViewport="true">
+    tools:context=".activities.ViewMyQueriesActivity">
 
-    <LinearLayout
-        android:id="@+id/queries_container"
+    <!-- Custom Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/black" 
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="My Queries"> <!-- Default title -->
+    </androidx.appcompat.widget.Toolbar>
 
-        <TextView
+    <!-- ScrollView containing the queries_container and no_queries_text -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/queries_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="My Queries"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp"> <!-- Original padding applied here -->
 
-        <!-- Queries will be added programmatically here -->
-        <TextView
-            android:id="@+id/no_queries_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No queries found"
-            android:textColor="#757575"
-            android:textSize="16sp"
-            android:visibility="gone"
-            android:gravity="center"
-            android:padding="32dp"/>
+            <!-- REMOVED: The TextView with "My Queries" as the Toolbar now handles the title -->
 
-    </LinearLayout>
-</ScrollView>
+            <!-- Queries will be added programmatically here -->
+            <TextView
+                android:id="@+id/no_queries_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No queries found"
+                android:textColor="#757575"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:padding="32dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

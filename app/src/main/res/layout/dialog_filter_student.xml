@@ -10,15 +10,6 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Filter Student Information"
-            android:textSize="20sp"
-            android:textColor="#6200EE"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,7 +123,7 @@
             android:layout_height="wrap_content"
             android:text="Clear Filters"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#6200EE"
+            android:backgroundTint="@android:color/black"
             android:textColor="@android:color/white"/>
     </LinearLayout>
     </LinearLayout>
