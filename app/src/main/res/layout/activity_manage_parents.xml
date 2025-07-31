@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Add/Link Parent"
+        android:text="Add / Link Parent"
         android:backgroundTint="@android:color/black"
         android:textColor="@android:color/white"/>
 
