@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View; // Import for View
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +28,6 @@ public class StudentDashboardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dashboard);
 
-        // Initialize DatabaseHelper
         dbHelper = new DatabaseHelper(this);
 
         // Initialize Views
@@ -43,14 +42,20 @@ public class StudentDashboardActivity extends Activity {
         btnLogout = findViewById(R.id.btnLogout);
         welcomeText = findViewById(R.id.welcomeText);
 
-        // Retrieve student_id
-        // Check if coming from Parent Dashboard
         boolean fromParentDashboard = getIntent().getBooleanExtra("from_parent_dashboard", false);
 
         if (fromParentDashboard) {
             loggedInStudentId = getIntent().getIntExtra("student_id", -1);
             // Hide the logout button if navigating from parent dashboard
             btnLogout.setVisibility(View.GONE);
+
+            // *** CHANGE BUTTON TEXTS FOR PARENT VIEW ***
+            viewQueriesBtn.setText("View Queries");
+            viewLeaveStatusBtn.setText("View Leave Applications");
+            checkAttendanceBtn.setText("Check Attendance");
+            btnViewMyDetails.setText("View Profile Details");
+            // *****************************************
+
         } else {
             // This is the case when a student logs in directly
             loggedInStudentId = getIntent().getIntExtra("student_id", -1);
@@ -60,6 +65,13 @@ public class StudentDashboardActivity extends Activity {
             }
             // Ensure logout button is visible if not from parent dashboard (i.e., direct student login)
             btnLogout.setVisibility(View.VISIBLE);
+
+            // *** SET DEFAULT (STUDENT) BUTTON TEXTS ***
+            viewQueriesBtn.setText("View My Queries");
+            viewLeaveStatusBtn.setText("View My Leave Applications");
+            checkAttendanceBtn.setText("Check My Attendance");
+            btnViewMyDetails.setText("My Profile Details");
+            // ****************************************
         }
 
         if (loggedInStudentId == -1) {
@@ -68,10 +80,9 @@ public class StudentDashboardActivity extends Activity {
             return;
         }
 
-        // Fetch and display student name
         displayStudentName();
 
-        // Button Actions (keep all your existing button click listeners)
+        // All existing button click listeners remain the same
         viewNoticesButton.setOnClickListener(v -> {
             Intent intent = new Intent(StudentDashboardActivity.this, ViewNoticesActivity.class);
             intent.putExtra("student_id", loggedInStudentId);
@@ -119,7 +130,6 @@ public class StudentDashboardActivity extends Activity {
             startActivity(intent);
         });
 
-        // Logout button listener, only if it's visible (i.e., not from parent dashboard)
         if (btnLogout.getVisibility() == View.VISIBLE) {
             btnLogout.setOnClickListener(v -> {
                 new AlertDialog.Builder(StudentDashboardActivity.this)
