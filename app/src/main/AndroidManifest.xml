@@ -48,6 +48,9 @@
         <activity android:name=".activities.ViewQueryDetailsActivity" />
          <activity android:name=".activities.ParentProfileActivity" />
 
+         <activity android:name=".activities.ManageParentsActivity" />
+        <activity android:name=".activities.AddParentActivity" />
+
 
         <activity android:name=".activities.NoticeActivity" android:exported="true" />
         <activity android:name=".activities.ViewNoticesActivity" android:exported="true" />

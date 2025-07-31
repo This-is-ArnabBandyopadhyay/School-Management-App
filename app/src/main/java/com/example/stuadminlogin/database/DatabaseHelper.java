@@ -21,6 +21,7 @@ import com.example.stuadminlogin.models.Notice;
 import com.example.stuadminlogin.models.LeaveApplication;
 import com.example.stuadminlogin.models.Attendance;
 import com.example.stuadminlogin.models.Holiday;
+import com.example.stuadminlogin.models.ParentModel; // Make sure to import your Parent model
 
 
 
@@ -63,114 +64,139 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                 "VALUES ('admin2', 'Admin Two', 'admin456', 'admin2@example.com', '0987654321', 'Address 2', '1992-02-02', '2020-02-02', 'uri2', datetime('now'), datetime('now'))");
 
                 // 🟢 Classes Table with class_code
-                db.execSQL("CREATE TABLE classes (" +
-                                "class_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                "class_name TEXT NOT NULL, " +
-                                "class_code TEXT NOT NULL UNIQUE)");
+db.execSQL("CREATE TABLE classes (" +
+            "class_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "class_name TEXT NOT NULL, " +
+            "class_code TEXT NOT NULL UNIQUE)");
 
-                // Dummy classes with codes
-                db.execSQL("INSERT INTO classes (class_name, class_code) VALUES " +
-                                "('Class 1', 'CLS9'), " +
-                                "('Class 2', 'CLS10')");
+// Dummy classes
+db.execSQL("INSERT INTO classes (class_name, class_code) VALUES ('Class 10', 'C10')");
+db.execSQL("INSERT INTO classes (class_name, class_code) VALUES ('Class 11', 'C11')");
+db.execSQL("INSERT INTO classes (class_name, class_code) VALUES ('Class 12', 'C12')");
 
-                // 🟢 Sections Table
-                db.execSQL("CREATE TABLE sections (" +
-                                "section_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                "class_id INTEGER NOT NULL, " +
-                                "section_name TEXT NOT NULL, " +
-                                "FOREIGN KEY(class_id) REFERENCES classes(class_id))");
+// 🟠 Sections Table (comes after classes since it references class_id)
+db.execSQL("CREATE TABLE sections (" +
+            "section_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "class_id INTEGER NOT NULL, " +
+            "section_name TEXT NOT NULL, " +
+            "FOREIGN KEY(class_id) REFERENCES classes(class_id))");
 
-                // Dummy sections
-                db.execSQL("INSERT INTO sections (class_id, section_name) VALUES " +
-                                "(1, 'A'), (1, 'B'), (2, 'A'), (2, 'B')");
+// Dummy sections
+// Section 1: Class 10, Section A
+db.execSQL("INSERT INTO sections (class_id, section_name) VALUES (1, 'A')");
+// Section 2: Class 10, Section B
+db.execSQL("INSERT INTO sections (class_id, section_name) VALUES (1, 'B')");
+// Section 3: Class 11, Section A
+db.execSQL("INSERT INTO sections (class_id, section_name) VALUES (2, 'A')");
 
-                // 🔵 Students Table (comes after sections since it references section_id)
-                db.execSQL("CREATE TABLE students (" +
-                                "student_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                "roll_no TEXT, " +
-                                "registration_no TEXT, " +
-                                "name TEXT, " +
-                                "email TEXT, " +
-                                "phone_no TEXT, " +
-                                "fathername TEXT, " +
-                                "mothername TEXT, " +
-                                "dob TEXT, " +
-                                "password TEXT NOT NULL, " +
-                                "address TEXT, " + // Optional: for address
-                                "admission_date TEXT, " + // Optional: for admission date
-                                "class_id INTEGER NOT NULL, " +
-                                "section_id INTEGER NOT NULL, " +
-                                "profile_photo_uri TEXT, " + // Optional: for profile photo
-                                "last_login TEXT, " + // Optional: for last login timestamp
-                                "created_at TEXT, " +
-                                "FOREIGN KEY(class_id) REFERENCES classes(class_id), " + // ✅ Add this line
-                                "FOREIGN KEY(section_id) REFERENCES sections(section_id))");
+                // 🔵 Students Table (comes after sections and classes since it references section_id and class_id)
+// Added UNIQUE constraints for roll_no and registration_no
+db.execSQL("CREATE TABLE students (" +
+            "student_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "roll_no TEXT UNIQUE, " + // Added UNIQUE
+            "registration_no TEXT UNIQUE, " + // Added UNIQUE
+            "name TEXT, " +
+            "email TEXT, " +
+            "phone_no TEXT, " +
+            "fathername TEXT, " +
+            "mothername TEXT, " +
+            "dob TEXT, " +
+            "password TEXT NOT NULL, " +
+            "address TEXT, " +
+            "admission_date TEXT, " +
+            "class_id INTEGER NOT NULL, " +
+            "section_id INTEGER NOT NULL, " +
+            "profile_photo_uri TEXT, " +
+            "last_login TEXT, " +
+            "created_at TEXT, " +
+            "FOREIGN KEY(class_id) REFERENCES classes(class_id), " +
+            "FOREIGN KEY(section_id) REFERENCES sections(section_id))");
 
-                // Dummy students — ensure section_id matches valid values from the inserted sections above
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('001', 'REG123', 'John Doe', 'john@example.com', '9876543210', 'Father Name', 'Mother Name', '2008-10-05', 'student123', datetime('now'), 'Address 1', '2020-01-01', 1, 1, 'uri1', datetime('now'))");
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('002', 'REG124', 'Jane Smith', 'jane@example.com', '9123456789', 'Mr. Smith', 'Mrs. Smith', '2009-06-12', 'student456', datetime('now'), 'Address 2', '2020-01-01', 1, 1, 'uri2', datetime('now'))");
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('003', 'REG125', 'Amit Roy', 'amit@example.com', '9123456701', 'Mr. Roy', 'Mrs. Roy', '2008-02-14', 'student789', datetime('now'), 'Address 3', '2020-01-01', 1, 2, 'uri3', datetime('now'))");
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('004', 'REG126', 'Sara Khan', 'sara@example.com', '9123456702', 'Mr. Khan', 'Mrs. Khan', '2008-07-20', 'student101', datetime('now'), 'Address 4', '2020-01-01', 1, 2, 'uri4', datetime('now'))");
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('005', 'REG127', 'Ravi Verma', 'ravi@example.com', '9123456703', 'Mr. Verma', 'Mrs. Verma', '2009-03-08', 'student102', datetime('now'), 'Address 5', '2020-01-01', 2, 1, 'uri5', datetime('now'))");
-                db.execSQL("INSERT INTO students " +
-                                "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) "
-                                +
-                                "VALUES ('006', 'REG128', 'Nisha Patel', 'nisha@example.com', '9123456704', 'Mr. Patel', 'Mrs. Patel', '2009-11-18', 'student103', datetime('now'), 'Address 6', '2020-01-01', 2, 1, 'uri6', datetime('now'))");
+// Dummy students with updated fathername/mothername to match parents
+//John Doe (student_id 1, Class 10, Section A) - Parents: David Johnson, Alice Johnson
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('001', 'REG123', 'John Doe', 'john@example.com', '9876543210', 'David Johnson', 'Alice Johnson', '2008-10-05', 'student123', datetime('now'), '123 Oak St', '2020-01-01', 1, 1, 'uri1', datetime('now'))");
+
+// Jane Smith (student_id 2, Class 10, Section A) - Parents: David Johnson, Alice Johnson
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('002', 'REG124', 'Jane Smith', 'jane@example.com', '9123456789', 'David Johnson', 'Alice Johnson', '2009-06-12', 'student456', datetime('now'), '123 Oak St', '2020-01-01', 1, 1, 'uri2', datetime('now'))");
+
+// Amit Roy (student_id 3, Class 10, Section B) - Parents: Robert Williams, Brenda Williams
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('003', 'REG125', 'Amit Roy', 'amit@example.com', '9123456701', 'Robert Williams', 'Brenda Williams', '2008-02-14', 'student789', datetime('now'), '456 Pine Ave', '2020-01-01', 1, 2, 'uri3', datetime('now'))");
+
+// Sara Khan (student_id 4, Class 10, Section B) - Parents: Robert Williams, Brenda Williams
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('004', 'REG126', 'Sara Khan', 'sara@example.com', '9123456702', 'Robert Williams', 'Brenda Williams', '2008-07-20', 'student101', datetime('now'), '456 Pine Ave', '2020-01-01', 1, 2, 'uri4', datetime('now'))");
+
+// Ravi Verma (student_id 5, Class 11, Section A) - Parents: Michael Davis, Catherine Davis
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('005', 'REG127', 'Ravi Verma', 'ravi@example.com', '9123456703', 'Michael Davis', 'Catherine Davis', '2009-03-08', 'student102', datetime('now'), '789 Elm St', '2020-01-01', 2, 3, 'uri5', datetime('now'))");
+
+// Nisha Patel (student_id 6, Class 11, Section A) - Parents: Michael Davis, Catherine Davis
+db.execSQL("INSERT INTO students " +
+            "(roll_no, registration_no, name, email, phone_no, fathername, mothername, dob, password, created_at, address, admission_date, class_id, section_id, profile_photo_uri, last_login) " +
+            "VALUES ('006', 'REG128', 'Nisha Patel', 'nisha@example.com', '9123456704', 'Michael Davis', 'Catherine Davis', '2009-11-18', 'student103', datetime('now'), '789 Elm St', '2020-01-01', 2, 3, 'uri6', datetime('now'))");
 
                                 // 🔵 Parents Table
-       // 🔵 Parents Table
+       // 🔵 Parents Table (Updated to include more specific names for surname matching)
 db.execSQL("CREATE TABLE parents (" +
-        "parent_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-        "email TEXT UNIQUE NOT NULL, " +
-        "password TEXT NOT NULL, " +
-        "name TEXT, " +
-        "phone_no TEXT, " +
-        "created_at TEXT, " +
-        "last_login TEXT, " + // <--- Make sure there's a comma here
-        "profile_photo_uri TEXT)"); // <--- No extra parenthesis here
+            "parent_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "email TEXT UNIQUE NOT NULL, " +
+            "password TEXT NOT NULL, " +
+            "name TEXT, " +
+            "phone_no TEXT, " +
+            "created_at TEXT, " +
+            "last_login TEXT, " +
+            "profile_photo_uri TEXT)");
 
-        // Dummy parents (passwords should be hashed in a real application)
-        // Dummy parents (passwords should be hashed in a real application)
-db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent1@example.com', 'parent123', 'Alice Johnson', '9988776655', datetime('now'), datetime('now'), NULL)");
-db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent2@example.com', 'parent456', 'Bob Williams', '9988776644', datetime('now'), datetime('now'), NULL)");
-db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('parent3@example.com', 'parent789', 'Catherine Davis', '9988776633', datetime('now'), datetime('now'), NULL)");
+// Dummy parents (passwords should be hashed in a real application)
+// Family 1: Johnson family (Parents of John Doe, Jane Smith)
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('david.johnson@example.com', 'parent123', 'David Johnson', '9988776655', datetime('now'), datetime('now'), NULL)"); // parent_id 1
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('alice.johnson@example.com', 'parent123', 'Alice Johnson', '9988776656', datetime('now'), datetime('now'), NULL)"); // parent_id 2
+
+// Family 2: Williams family (Parents of Amit Roy, Sara Khan)
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('robert.williams@example.com', 'parent456', 'Robert Williams', '9988776644', datetime('now'), datetime('now'), NULL)"); // parent_id 3
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('brenda.williams@example.com', 'parent456', 'Brenda Williams', '9988776645', datetime('now'), datetime('now'), NULL)"); // parent_id 4
+
+// Family 3: Davis family (Parents of Ravi Verma, Nisha Patel)
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('michael.davis@example.com', 'parent789', 'Michael Davis', '9988776633', datetime('now'), datetime('now'), NULL)"); // parent_id 5
+db.execSQL("INSERT INTO parents (email, password, name, phone_no, created_at, last_login, profile_photo_uri) VALUES ('catherine.davis@example.com', 'parent789', 'Catherine Davis', '9988776634', datetime('now'), datetime('now'), NULL)"); // parent_id 6
 
 
         // 🔵 Parent-Student Linking Table
-        db.execSQL("CREATE TABLE parent_student_link (" +
-                "link_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "parent_id INTEGER NOT NULL, " +
-                "student_id INTEGER NOT NULL, " +
-                "FOREIGN KEY(parent_id) REFERENCES parents(parent_id) ON DELETE CASCADE, " +
-                "FOREIGN KEY(student_id) REFERENCES students(student_id) ON DELETE CASCADE, " +
-                "UNIQUE(parent_id, student_id))"); // Ensure a parent is linked to a student only once
+db.execSQL("CREATE TABLE parent_student_link (" +
+            "link_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "parent_id INTEGER NOT NULL, " +
+            "student_id INTEGER NOT NULL, " +
+            "FOREIGN KEY(parent_id) REFERENCES parents(parent_id) ON DELETE CASCADE, " +
+            "FOREIGN KEY(student_id) REFERENCES students(student_id) ON DELETE CASCADE, " +
+            "UNIQUE(parent_id, student_id))");
 
-        // Dummy parent-student links
-        // Alice Johnson (parent_id 1) is parent of John Doe (student_id 1) and Jane Smith (student_id 2)
-        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 1)");
-        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 2)");
+// Dummy parent-student links
+// John Doe (student_id 1) and Jane Smith (student_id 2) are children of David Johnson (parent_id 1) and Alice Johnson (parent_id 2)
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 1)"); // David Johnson -> John Doe
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (2, 1)"); // Alice Johnson -> John Doe
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (1, 2)"); // David Johnson -> Jane Smith
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (2, 2)"); // Alice Johnson -> Jane Smith
 
-        // Bob Williams (parent_id 2) is parent of Amit Roy (student_id 3)
-        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (2, 3)");
+// Amit Roy (student_id 3) and Sara Khan (student_id 4) are children of Robert Williams (parent_id 3) and Brenda Williams (parent_id 4)
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 3)"); // Robert Williams -> Amit Roy
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (4, 3)"); // Brenda Williams -> Amit Roy
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 4)"); // Robert Williams -> Sara Khan
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (4, 4)"); // Brenda Williams -> Sara Khan
 
-        // Catherine Davis (parent_id 3) is parent of Sara Khan (student_id 4) and Rahul Sharma (student_id 5)
-        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 4)");
-        db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (3, 5)");
+// Ravi Verma (student_id 5) and Nisha Patel (student_id 6) are children of Michael Davis (parent_id 5) and Catherine Davis (parent_id 6)
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (5, 5)"); // Michael Davis -> Ravi Verma
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (6, 5)"); // Catherine Davis -> Ravi Verma
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (5, 6)"); // Michael Davis -> Nisha Patel
+db.execSQL("INSERT INTO parent_student_link (parent_id, student_id) VALUES (6, 6)"); // Catherine Davis -> Nisha Patel
+
 
                 // 🟢 Notices Table
                 db.execSQL("CREATE TABLE notices (" +
@@ -410,13 +436,13 @@ db.execSQL("INSERT INTO queries (student_id, parent_id, linked_student_id, query
                                 student.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                                 student.setAddress(cursor.getString(cursor.getColumnIndex("address"))); // ✅
                                 student.setAdmissionDate(cursor.getString(cursor.getColumnIndex("admission_date"))); // ✅
-                                student.setProfilePhotoUri(cursor.getString(cursor.getColumnIndex("profile_photo_uri"))); // ✅
+                                student.setProfilePhotoUri(
+                                                cursor.getString(cursor.getColumnIndex("profile_photo_uri"))); // ✅
                                 student.setLastLogin(cursor.getString(cursor.getColumnIndex("last_login"))); // ✅
                                 student.setSectionId(cursor.getInt(cursor.getColumnIndex("section_id")));
                                 student.setClassId(cursor.getInt(cursor.getColumnIndex("class_id"))); // ✅ Add class ID
-                                
+
                                 studentList.add(student);
-                                
 
                         } while (cursor.moveToNext());
                 }
@@ -425,6 +451,44 @@ db.execSQL("INSERT INTO queries (student_id, parent_id, linked_student_id, query
                 db.close();
                 return studentList;
         }
+
+
+        // Inside DatabaseHelper.java
+
+public String getClassNameById(int classId) {
+    SQLiteDatabase db = this.getReadableDatabase();
+    String className = null;
+    Cursor cursor = db.query("classes", new String[]{"class_name"},
+            "class_id = ?", new String[]{String.valueOf(classId)},
+            null, null, null);
+    if (cursor != null) {
+        if (cursor.moveToFirst()) {
+            className = cursor.getString(cursor.getColumnIndexOrThrow("class_name"));
+        }
+        cursor.close();
+    }
+    db.close();
+    return className;
+}
+
+public String getSectionNameById(int sectionId) {
+    SQLiteDatabase db = this.getReadableDatabase();
+    String sectionName = null;
+    Cursor cursor = db.query("sections", new String[]{"section_name"},
+            "section_id = ?", new String[]{String.valueOf(sectionId)},
+            null, null, null);
+    if (cursor != null) {
+        if (cursor.moveToFirst()) {
+            sectionName = cursor.getString(cursor.getColumnIndexOrThrow("section_name"));
+        }
+        cursor.close();
+    }
+    db.close();
+    return sectionName;
+}
+        
+
+        
 
         public boolean insertStudent(StudentModel student) {
                 SQLiteDatabase db = this.getWritableDatabase();
@@ -954,33 +1018,239 @@ public int removeStudentFromGroup(int groupId, int studentId) {
 }
 
 public List<StudentModel> getAllStudents() {
-    List<StudentModel> students = new ArrayList<>();
-    SQLiteDatabase db = this.getReadableDatabase();
-    Cursor cursor = db.query("students", null, null, null, null, null, "name ASC");
+        List<StudentModel> students = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("students", null, null, null, null, null, "name ASC");
 
-    if (cursor.moveToFirst()) {
-        do {
-            StudentModel student = new StudentModel();
-            student.setStudentId(cursor.getInt(0));
-            student.setRollNo(cursor.getString(1));
-            student.setRegistrationNo(cursor.getString(2));
-            student.setName(cursor.getString(3));
-            student.setEmail(cursor.getString(4));
-            student.setPhoneNo(cursor.getString(5));
-            student.setFatherName(cursor.getString(6));
-            student.setMotherName(cursor.getString(7));
-            student.setDob(cursor.getString(8));
-            student.setPassword(cursor.getString(9));
-            student.setAddress(cursor.getString(10));
-            student.setAdmissionDate(cursor.getString(11));
-            student.setClassId(cursor.getInt(12));
-            student.setSectionId(cursor.getInt(13));
-            students.add(student);
-        } while (cursor.moveToNext());
+        if (cursor.moveToFirst()) {
+                do {
+                        StudentModel student = new StudentModel();
+                        student.setStudentId(cursor.getInt(0));
+                        student.setRollNo(cursor.getString(1));
+                        student.setRegistrationNo(cursor.getString(2));
+                        student.setName(cursor.getString(3));
+                        student.setEmail(cursor.getString(4));
+                        student.setPhoneNo(cursor.getString(5));
+                        student.setFatherName(cursor.getString(6));
+                        student.setMotherName(cursor.getString(7));
+                        student.setDob(cursor.getString(8));
+                        student.setPassword(cursor.getString(9));
+                        student.setAddress(cursor.getString(10));
+                        student.setAdmissionDate(cursor.getString(11));
+                        student.setClassId(cursor.getInt(12));
+                        student.setSectionId(cursor.getInt(13));
+                        students.add(student);
+                } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return students;
+}
+
+// --- Parent Management Methods ---
+
+    /**
+     * Adds a new parent to the database.
+     *
+     * @param parent The ParentModel object containing details.
+     * @return The row ID of the newly inserted parent, or -1 if an error occurred.
+     */
+    public long addParent(ParentModel parent) { // Changed Parent to ParentModel
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("email", parent.getEmail());
+        values.put("password", parent.getPassword());
+        values.put("name", parent.getName());
+        values.put("phone_no", parent.getPhoneNo());
+        values.put("created_at", getCurrentDateTime());
+        values.put("profile_photo_uri", parent.getProfilePhotoUri()); // Add this field
+
+        long id = db.insert("parents", null, values);
+        db.close();
+        return id;
     }
-    cursor.close();
-    db.close();
-    return students;
+
+    /**
+     * Retrieves a parent by their ID.
+     *
+     * @param parentId The ID of the parent to retrieve.
+     * @return The ParentModel object if found, otherwise null.
+     */
+    public ParentModel getParentById(int parentId) { // Changed Parent to ParentModel
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("parents",
+                new String[]{"parent_id", "email", "password", "name", "phone_no", "created_at", "last_login", "profile_photo_uri"},
+                "parent_id" + "=?",
+                new String[]{String.valueOf(parentId)},
+                null, null, null, null);
+
+        ParentModel parent = null; // Changed Parent to ParentModel
+        if (cursor != null && cursor.moveToFirst()) {
+            parent = new ParentModel( // Changed Parent to ParentModel
+                    cursor.getInt(cursor.getColumnIndexOrThrow("parent_id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("password")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("phone_no")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("created_at")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("last_login")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("profile_photo_uri"))
+            );
+            cursor.close();
+        }
+        db.close();
+        return parent;
+    }
+
+    /**
+     * Retrieves a parent's ID by their email address.
+     *
+     * @param email The email address of the parent.
+     * @return The parent_id if found, or -1 if not found.
+     */
+    public long getParentIdByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("parents",
+                new String[]{"parent_id"},
+                "email" + "=?",
+                new String[]{email},
+                null, null, null);
+
+        long parentId = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            parentId = cursor.getInt(cursor.getColumnIndexOrThrow("parent_id"));
+            cursor.close();
+        }
+        db.close();
+        return parentId;
+    }
+
+    /**
+     * Updates an existing parent's details.
+     *
+     * @param parent The ParentModel object with updated details.
+     * @param updatePassword True if the password should be updated, false otherwise.
+     * @return True if the update was successful, false otherwise.
+     */
+    public boolean updateParent(ParentModel parent, boolean updatePassword) { // Changed Parent to ParentModel
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", parent.getName());
+        values.put("email", parent.getEmail());
+        values.put("phone_no", parent.getPhoneNo());
+        values.put("profile_photo_uri", parent.getProfilePhotoUri()); // Add this field
+        if (updatePassword && parent.getPassword() != null && !parent.getPassword().isEmpty()) {
+            values.put("password", parent.getPassword());
+        }
+
+        int rowsAffected = db.update("parents", values, "parent_id" + " = ?",
+                new String[]{String.valueOf(parent.getParentId())});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Links a parent to a student in the parent_student_link table.
+     *
+     * @param parentId The ID of the parent.
+     * @param studentId The ID of the student.
+     * @return True if the link was successfully created, false otherwise (e.g., if link already exists).
+     */
+    public boolean linkParentToStudent(int parentId, int studentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("parent_id", parentId);
+        values.put("student_id", studentId);
+
+        // Check if the link already exists to avoid duplicate entries
+        Cursor cursor = db.query("parent_student_link",
+                new String[]{"link_id"},
+                "parent_id" + " = ? AND " + "student_id" + " = ?",
+                new String[]{String.valueOf(parentId), String.valueOf(studentId)},
+                null, null, null);
+
+        boolean linkExists = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        if (!linkExists) {
+            long id = db.insert("parent_student_link", null, values);
+            db.close();
+            return id != -1;
+        } else {
+            db.close();
+            return false; // Link already exists
+        }
+    }
+
+    /**
+     * Retrieves all parents linked to a specific student.
+     *
+     * @param studentId The ID of the student.
+     * @return A list of ParentModel objects associated with the student.
+     */
+    public List<ParentModel> getParentsByStudentId(int studentId) { // Changed Parent to ParentModel
+        List<ParentModel> parentsList = new ArrayList<>(); // Changed Parent to ParentModel
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT P.parent_id, P.email, P.password, P.name, P.phone_no, P.created_at, P.last_login, P.profile_photo_uri"
+                + " FROM parents P"
+                + " INNER JOIN parent_student_link PSL ON P.parent_id = PSL.parent_id"
+                + " WHERE PSL.student_id = ?";
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(studentId)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                ParentModel parent = new ParentModel( // Changed Parent to ParentModel
+                        cursor.getInt(cursor.getColumnIndexOrThrow("parent_id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("password")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("phone_no")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("created_at")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("last_login")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("profile_photo_uri"))
+                );
+                parentsList.add(parent);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return parentsList;
+    }
+
+    /**
+     * Removes the link between a specific parent and a student.
+     * This does NOT delete the parent's record from the parents table.
+     *
+     * @param parentId The ID of the parent.
+     * @param studentId The ID of the student.
+     * @return True if the link was successfully removed, false otherwise.
+     */
+    public boolean removeParentStudentLink(int parentId, int studentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete("parent_student_link",
+                "parent_id" + " = ? AND " + "student_id" + " = ?",
+                new String[]{String.valueOf(parentId), String.valueOf(studentId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Deletes a parent completely from the database.
+     * Use with caution, as this will also remove all links to students due to ON DELETE CASCADE.
+     *
+     * @param parentId The ID of the parent to delete.
+     * @return True if the parent was successfully deleted, false otherwise.
+     */
+    public boolean deleteParent(int parentId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete("parents", "parent_id" + " = ?",
+                new String[]{String.valueOf(parentId)});
+        db.close();
+        return rowsAffected > 0;
+    }
 }
 
-}

@@ -49,5 +49,12 @@
             android:text="Check Attendance"
             android:layout_marginTop="8dp" />
 
+            <Button
+            android:id="@+id/btn_manage_parents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Parents"
+            android:layout_marginTop="8dp" />
+
     </LinearLayout>
 </LinearLayout>
