@@ -5,13 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem; // Import for MenuItem
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity; // Change this
-import androidx.appcompat.widget.Toolbar; // Import for Toolbar
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.stuadminlogin.R;
 import com.example.stuadminlogin.database.DatabaseHelper;
@@ -21,7 +21,7 @@ import com.example.stuadminlogin.adapters.StudentListAdapterForParent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewStudentsForParentActivity extends AppCompatActivity { // Change this
+public class ViewStudentsForParentActivity extends AppCompatActivity {
 
     private ListView studentListView;
     private TextView noStudentsText;
@@ -62,6 +62,9 @@ public class ViewStudentsForParentActivity extends AppCompatActivity { // Change
             if (selectedStudent != null) {
                 Intent intent = new Intent(ViewStudentsForParentActivity.this, StudentDashboardActivity.class);
                 intent.putExtra("student_id", selectedStudent.getStudentId());
+                // *** IMPORTANT CHANGE HERE ***
+                intent.putExtra("from_parent_dashboard", true); // Indicate navigation from parent
+                // ***************************
                 startActivity(intent);
             }
         });
@@ -72,11 +75,11 @@ public class ViewStudentsForParentActivity extends AppCompatActivity { // Change
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String query = "SELECT s.student_id, s.name, s.roll_no, s.registration_no, c.class_name AS class_name, sec.section_name AS section_name " +
-                       "FROM students s " +
-                       "JOIN parent_student_link psl ON s.student_id = psl.student_id " +
-                       "JOIN classes c ON s.class_id = c.class_id " +
-                       "JOIN sections sec ON s.section_id = sec.section_id " +
-                       "WHERE psl.parent_id = ?";
+                "FROM students s " +
+                "JOIN parent_student_link psl ON s.student_id = psl.student_id " +
+                "JOIN classes c ON s.class_id = c.class_id " +
+                "JOIN sections sec ON s.section_id = sec.section_id " +
+                "WHERE psl.parent_id = ?";
 
         Cursor cursor = null;
         try {

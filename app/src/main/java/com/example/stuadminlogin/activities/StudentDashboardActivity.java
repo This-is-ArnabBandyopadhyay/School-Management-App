@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View; // Import for View
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +17,8 @@ import com.example.stuadminlogin.database.DatabaseHelper;
 
 public class StudentDashboardActivity extends Activity {
 
-    Button viewNoticesButton, submitQueryBtn, viewQueriesBtn, applyLeaveBtn, viewLeaveStatusBtn, 
-           checkAttendanceBtn, btnViewHolidays, btnViewMyDetails, btnLogout;
+    Button viewNoticesButton, submitQueryBtn, viewQueriesBtn, applyLeaveBtn, viewLeaveStatusBtn,
+            checkAttendanceBtn, btnViewHolidays, btnViewMyDetails, btnLogout;
     TextView welcomeText;
     int loggedInStudentId;
     DatabaseHelper dbHelper;
@@ -43,10 +44,22 @@ public class StudentDashboardActivity extends Activity {
         welcomeText = findViewById(R.id.welcomeText);
 
         // Retrieve student_id
-        loggedInStudentId = getIntent().getIntExtra("student_id", -1);
-        if (loggedInStudentId == -1) {
-            SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-            loggedInStudentId = sharedPreferences.getInt("student_id", -1);
+        // Check if coming from Parent Dashboard
+        boolean fromParentDashboard = getIntent().getBooleanExtra("from_parent_dashboard", false);
+
+        if (fromParentDashboard) {
+            loggedInStudentId = getIntent().getIntExtra("student_id", -1);
+            // Hide the logout button if navigating from parent dashboard
+            btnLogout.setVisibility(View.GONE);
+        } else {
+            // This is the case when a student logs in directly
+            loggedInStudentId = getIntent().getIntExtra("student_id", -1);
+            if (loggedInStudentId == -1) {
+                SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                loggedInStudentId = sharedPreferences.getInt("student_id", -1);
+            }
+            // Ensure logout button is visible if not from parent dashboard (i.e., direct student login)
+            btnLogout.setVisibility(View.VISIBLE);
         }
 
         if (loggedInStudentId == -1) {
@@ -106,22 +119,25 @@ public class StudentDashboardActivity extends Activity {
             startActivity(intent);
         });
 
-        btnLogout.setOnClickListener(v -> {
-            new AlertDialog.Builder(StudentDashboardActivity.this)
-                .setTitle("Logout")
-                .setMessage("Are you sure you want to log out?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-                    sharedPreferences.edit().clear().apply();
+        // Logout button listener, only if it's visible (i.e., not from parent dashboard)
+        if (btnLogout.getVisibility() == View.VISIBLE) {
+            btnLogout.setOnClickListener(v -> {
+                new AlertDialog.Builder(StudentDashboardActivity.this)
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to log out?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+                            sharedPreferences.edit().clear().apply();
 
-                    Intent intent = new Intent(StudentDashboardActivity.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
-        });
+                            Intent intent = new Intent(StudentDashboardActivity.this, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            });
+        }
     }
 
     private void displayStudentName() {
