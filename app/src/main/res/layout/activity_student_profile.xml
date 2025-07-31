@@ -468,7 +468,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:text="Update Profile"
-                            android:backgroundTint="?android:attr/colorPrimary"
+                            android:backgroundTint="@android:color/black"
                             android:textColor="@android:color/white"
                             android:visibility="gone"
                             style="@style/Widget.AppCompat.Button.Colored"/>
