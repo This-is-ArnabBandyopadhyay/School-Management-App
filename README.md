@@ -61,7 +61,7 @@ The app features **role-based login** and separate panels for each user type wit
 
 ## 🤝 Collaborators
 
-| 🔧 Feature/Module                 | 👨‍💻 Contributor       |
+|  🔧 Feature/Module                |   👨‍💻 Contributor       |
 | --------------------------------  | ----------------------- |
 | 📊 Attendance + Additional Part   | **Arnab Bandyopadhyay** |
 | 📨 Leave Management               | **Aritra Das**          |
