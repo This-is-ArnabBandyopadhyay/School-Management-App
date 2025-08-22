@@ -18,6 +18,9 @@ The app features **role-based login** and separate panels for each user type wit
 * 🧑‍💻 View & update **My Profile**
 * 🔒 Secure **Login / Logout** functionality
 
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202820.jpg?raw=true" width="300" alt="screenshot description" />  
+
+
 ### 🎒 Student Panel
 
 * 🧑‍💻 View & update **Profile**
@@ -28,6 +31,8 @@ The app features **role-based login** and separate panels for each user type wit
 * ❓ Submit **Queries** to admin
 * 🔒 **Login / Logout** functionality
 
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202803.jpg?raw=true" width="300" alt="screenshot description" /> 
+
 ### 👨‍👩‍👧 Parent Panel
 
 * 🧾 Access **Student Profile Details**
@@ -36,6 +41,8 @@ The app features **role-based login** and separate panels for each user type wit
 * 📅 Access **Holiday List**
 * 💬 Communicate with admin via **Queries**
 * 🔒 **Login / Logout** functionality
+
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202734.jpg?raw=true" width="300" alt="screenshot description" />
 
 ---
 
