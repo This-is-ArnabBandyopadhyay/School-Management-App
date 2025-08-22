@@ -43,6 +43,7 @@ The app features **role-based login** and separate panels for each user type wit
 * 🗄️ **Database**: SQLite
 * 🖥️ **IDE**: Android Studio
 * 🌍 **Version Control**: Git & GitHub
+* 🎨 **UI/UX**: XML
 
 ---
 
