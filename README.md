@@ -1,7 +1,7 @@
 # 🎓 School Management App
 
 📱 A **Java-based Android application** designed to manage student information and streamline communication between **administrators, students, and parents**.
-The app features **role-based login** and separate panels for each user type with dedicated functionality.
+The app features **role-based login** and separate panels for each user type with dedicated functionality. 
 
 ---
 
