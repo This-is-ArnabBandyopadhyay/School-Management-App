@@ -9,32 +9,33 @@ The app features **role-based login** and separate panels for each user type wit
 
 ### 🏫 Admin Panel
 
-* 👩‍🎓 Add & manage **student profiles**
-* 📢 Send **notices** to students & parents
-* 💬 View & **respond** to student queries
+* 👩‍🎓 Add & manage **Student Profiles**
+* 📢 Send **Notices** to students & parents
+* 💬 View & **Respond** to student queries
 * 📝 **Approve / ❌ Reject** leave applications
-* 👨‍💼 Create **admins** & manage student groups
-* 📅 View **upcoming holidays**
-* 🔒 Secure **login / logout** functionality
+* 👨‍💼 Create **Admins** & manage student groups
+* 📅 View **Upcoming Holidays**
+* 🧑‍💻 View & update **My Profile**
+* 🔒 Secure **Login / Logout** functionality
 
 ### 🎒 Student Panel
 
-* 🧑‍💻 View & update **profile**
-* 📰 Read **notices** shared by admin
-* 📊 Check **attendance records**
-* 📅 View **holiday list**
-* 📨 Apply for **leave**
-* ❓ Submit **queries** to admin
-* 🔒 **Login / logout** functionality
+* 🧑‍💻 View & update **Profile**
+* 📰 Read **Notices** shared by admin
+* 📊 Check **Attendance Records**
+* 📅 View **Holiday List**
+* 📨 Apply for **Leave**
+* ❓ Submit **Queries** to admin
+* 🔒 **Login / Logout** functionality
 
 ### 👨‍👩‍👧 Parent Panel
 
-* 🧾 Access **student profile details**
-* 📰 View **notices** from admin
-* 📊 Track **attendance & leave status** of child
-* 📅 Access **holiday list**
-* 💬 Communicate with admin via **queries**
-* 🔒 **Login / logout** functionality
+* 🧾 Access **Student Profile Details**
+* 📰 View **Notices** from admin
+* 📊 Track **Attendance & Leave Status** of child
+* 📅 Access **Holiday List**
+* 💬 Communicate with admin via **Queries**
+* 🔒 **Login / Logout** functionality
 
 ---
 
