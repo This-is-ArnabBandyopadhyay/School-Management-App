@@ -14,6 +14,7 @@ The app features **role-based login** and separate panels for each user type wit
 * 💬 View & **respond** to student queries
 * 📝 **Approve / ❌ Reject** leave applications
 * 👨‍💼 Create **admins** & manage student groups
+* 📅 View **upcoming holidays**
 * 🔒 Secure **login / logout** functionality
 
 ### 🎒 Student Panel
