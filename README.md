@@ -18,7 +18,8 @@ The app features **role-based login** and separate panels for each user type wit
 * 🧑‍💻 View & update **My Profile**
 * 🔒 Secure **Login / Logout** functionality
 
-<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202820.jpg?raw=true" width="300" alt="screenshot description" />  
+
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202820.jpg?raw=true" width="300" height = "600" alt="screenshot description" />  
 
 
 ### 🎒 Student Panel
@@ -31,7 +32,8 @@ The app features **role-based login** and separate panels for each user type wit
 * ❓ Submit **Queries** to admin
 * 🔒 **Login / Logout** functionality
 
-<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202803.jpg?raw=true" width="300" alt="screenshot description" /> 
+
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202803.jpg?raw=true" width="300" height = "600" alt="screenshot description" /> 
 
 ### 👨‍👩‍👧 Parent Panel
 
@@ -42,7 +44,8 @@ The app features **role-based login** and separate panels for each user type wit
 * 💬 Communicate with admin via **Queries**
 * 🔒 **Login / Logout** functionality
 
-<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202734.jpg?raw=true" width="300" alt="screenshot description" />
+
+<img src="https://github.com/This-is-ArnabBandyopadhyay/School-Management-App/blob/main/IMG_20250822_202734.jpg?raw=true" width="300" height = "600" alt="screenshot description" />
 
 ---
 
@@ -59,12 +62,12 @@ The app features **role-based login** and separate panels for each user type wit
 ## 🤝 Collaborators
 
 | 🔧 Feature/Module                 | 👨‍💻 Contributor       |
-| --------------------------------- | ----------------------- |
-| 📊 Attendance + Additional Part   |**Arnab Bandopadhyay**  |
+| --------------------------------  | ----------------------- |
+| 📊 Attendance + Additional Part   | **Arnab Bandyopadhyay** |
 | 📨 Leave Management               | **Aritra Das**          |
 | 📢 Notice & Holiday Management    | **Avishek Shaw**        |
-| 🖥️ Dashboard Design + Login Page | **Soham Bhattacharyya** |
-| 🗄️ Database                      | **Vaibhav Kundu**       |
+| 🖥️ Dashboard Design + Login Page  | **Soham Bhattacharyya** |
+| 🗄️ Database                       | **Vaibhav Kundu**       |
 | 💬 Query Resolution               | **Prashant Kumar Jha**  |
 
 ---
